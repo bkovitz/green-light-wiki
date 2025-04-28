@@ -1,0 +1,7 @@
+REQUEST_METHOD=GET QUERY_STRING= REQUEST_URI=/accWiki/Recent_Changes TZ=PST8PDT python WikiClient.py
+----
+.*
+<h1>Recent Changes</h1>
+.*
+<P CLASS="item">.*<A HREF="http://greenlightwiki.com/WelcomePage">Welcome Page</A> . . . . . . 101.102.103.104</P>
+.*

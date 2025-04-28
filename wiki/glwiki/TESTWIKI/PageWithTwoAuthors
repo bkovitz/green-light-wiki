@@ -1,0 +1,16 @@
+@@ version 1; date 2003.12.19.18.35.21; author George Gibbons;
+george one
+
+george three
+@@ version 2; date 2003.12.19.18.35.21; author George Gibbons;
+@@i3
+george two
+
+@@ version 3; date 2003.12.19.18.35.21; author Dr. John Mittens;
+@@d3
+@@i4
+john one
+@@ version 4; date 2003.12.19.18.35.21; author Dr. John Mittens;
+@@i6
+
+john two

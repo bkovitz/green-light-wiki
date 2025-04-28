@@ -1,0 +1,6 @@
+REQUEST_METHOD=GET QUERY_STRING= REQUEST_URI=/accWiki/Welcome_Page TZ=PST8PDT python WikiClient.py
+----
+Content-type: text/html
+Set-Cookie: wiki-session=[A-Za-z0-9]{20}; Domain=.greenlightwiki.com; Max-Age=15552000; Path=/; Version=1;
+
+.*

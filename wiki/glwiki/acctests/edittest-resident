@@ -1,0 +1,37 @@
+REQUEST_METHOD=GET QUERY_STRING=action=edit REQUEST_URI=/accWiki/WelcomePage TZ=PST8PDT python WikiClient.py
+----
+.*
+<html><head>
+  <title>edit Welcome Page</title>
+  <LINK REL="STYLESHEET" HREF="wiki.css" TYPE="text/css">\s*
+  <META NAME="keywords" CONTENT="wiki, green light wiki, unit test">\s*
+  <META NAME="robots" CONTENT="none">\s*
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">\s*
+</head>
+<body>\s*
+<div id="wiki-top">\s*
+<p>&nbsp;</p>
+<h1>edit Welcome Page</h1>
+</div>\s*
+<div id="wiki-edit">
+  <form action="http://greenlightwiki.com/WelcomePage" method=post><textarea rows=24 cols=80 wrap=virtual name="text">Some text & some more text
+ some '''bold''' text at
+ the start of a ''line''
+
+----
+\= Heading 1 \=
+
+http://google.com
+\[\[http://google.com Google\]\]
+\[\[Google http://google.com \]\]
+
+\* A list item.
+\* Another \[\[ListItem\]\].
+</textarea>
+<div id="wiki-edit-buttons">
+    <input type=submit value=" Save "><input type=hidden name="origVersion" value="1">
+  </div>
+</form>
+</div>\s*
+</body>
+</html>\s*

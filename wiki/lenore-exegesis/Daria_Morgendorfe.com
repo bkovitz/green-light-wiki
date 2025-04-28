@@ -1,0 +1,3 @@
+@@ version 1; date 2004.3.1.4.54.30; author Luthien;
+Describe Daria Morgendorfe.com here.
+the coolest person i know that accepts reality coz the world isnt what  society tries to tell us SHE'S THE SHIT! how many queens you know? lol* of course people sometimes hate her coz they dont wanna accept that their little play of happy world aint real I'M NOT DEPRESSED i live my life and i live it real good i'm happy but i accept that the world is something you discover not something someone can teach you so don't let anyone tell you how it is just step out and see it by yourself you'll see daria is ritte at least 4 now.... (a peruvian girl's been here!)

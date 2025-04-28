@@ -1,0 +1,10 @@
+@@ version 1; date 2004.7.3.9.5.52; author Ben Kovitz;
+A wiki is a web site that lets you edit its pages.  It's sort of like an on-line bulletin board.  To experiment, see [[Sand Box]].
+
+The first wiki ever was [[Ward Cunningham's Wiki http://www.c2.com/cgi/wiki?RecentChanges]].  It was where many of the ideas of [[Extreme Programming http://www.c2.com/cgi/wiki?ExtremeProgrammingCorePractices]] were hashed out, as well as many software development patterns.  [[Ward's Wiki http://www.c2.com/cgi/wiki?RecentChanges]] still thrives as a meeting place for the software world to discuss culture, techniques, and ideas of all sorts.
+
+Wikis, like [[Extreme Programming http://www.c2.com/cgi/wiki?ExtremeProgrammingCorePractices]], involve a special style of collaboration: unilateral cooperation.  Each collaborator edits without asking permission from the other authors.  There is little or no planning or discussion: you just edit the text itself.  This results in an anonymously, collectively written work that is never "complete" but just keeps on growing and improving.  
+
+''You'' are invited to modify any text on the wiki you like, to make it clearer, more interesting, more stimulating.  It doesn't matter who the "original" author of the text is.  You are invited to improve it however you like.  That might be as simple as fixing a typo or as involved as splitting text into several pages or rewriting it from scratch.  The one proviso is to please never "improve" some text by having it no longer express an idea that you believe is mistaken.  The wiki expresses all ideas that anyone found interesting or persuasive--rightly or wrongly.  The improvements are to express the ideas so they are more stimulating to readers, and to add more ideas, never to take away.
+
+The name "wiki" comes from the Hawaiian word ''wikiwiki'', which means "quick".  Editing a wiki page is quick and easy, and requires no knowledge of HTML.

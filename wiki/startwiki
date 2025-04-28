@@ -1,0 +1,8 @@
+#!  /bin/bash
+
+#echo "Content-type: text/plain"
+#echo
+# set -x
+# which python
+nohup python glwiki/Main.py RESIDE >/dev/null &
+sleep 1

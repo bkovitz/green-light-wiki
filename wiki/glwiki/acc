@@ -1,0 +1,52 @@
+fileExists() {
+   for filename in "$@"
+   do
+      test -f $filename && return 0
+   done
+   echo "couldn't find" "$@"
+   return 1
+}
+
+residentTest() {
+   echo "beginning test of resident server"
+   # python Main.py RESIDE &
+   # sleep 3
+   rm -rf *.expected *.got &&
+   rm -rf accWiki &&
+   rm -f accWiki.RecentChanges &&
+   mkdir accWiki &&
+   ./accrun.py acctests/statictest1-resident
+   ./accrun.py acctests/plaintest-resident &&
+   ./accrun.py acctests/editnewtest-resident &&
+   ./accrun.py acctests/savetest-resident &&
+   ./accrun.py acctests/cgistuff-resident &&
+   ./accrun.py acctests/disptest-resident &&
+   ./accrun.py acctests/edittest-resident &&
+   ./accrun.py acctests/recenttest-resident &&
+   ./accrun.py acctests/alltest-resident &&
+   fileExists accWiki/WelcomePage &&
+   fileExists accWiki.RecentChanges.db accWiki.RecentChanges
+   result=$?
+   python Main.py TERMINATE
+   return $result
+}
+
+rm -rf *.expected *.got &&
+rm -rf accWiki &&
+rm -f accWiki.RecentChanges &&
+mkdir accWiki &&
+./accrun.py acctests/statictest1 &&
+# acctests/statictest2 &&
+# acctests/statictest3 &&
+./accrun.py acctests/plaintest &&
+./accrun.py acctests/editnewtest &&
+./accrun.py acctests/savetest &&
+./accrun.py acctests/cgistuff &&
+./accrun.py acctests/disptest &&
+./accrun.py acctests/edittest &&
+./accrun.py acctests/recenttest &&
+./accrun.py acctests/alltest &&
+fileExists accWiki/WelcomePage &&
+fileExists accWiki.RecentChanges.db accWiki.RecentChanges &&
+residentTest &&
+echo "OK"

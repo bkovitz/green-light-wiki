@@ -1,0 +1,1 @@
+REQUEST_METHOD=GET QUERY_STRING= REDIRECT_URL=not_a_wiki_name TZ=PST8PDT python Main.py TESTFILES STATIC htmlTest.html

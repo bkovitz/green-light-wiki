@@ -1,0 +1,50 @@
+== HtmlPage
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  <title><%= title %></title>
+  <%= stylesheets %>
+  <%= keywords %>
+  <%= metas %>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+</head>
+<body>
+  <%= body %>
+</body>
+</html>
+
+== WikiPageBody
+
+<%= preambleBody %>
+<%= top %>
+<%= message %>
+<%= content %>
+<%= bottom %>
+
+== Content
+
+<div id="wiki-content">
+<%= content %>
+</div>
+
+== Bottom
+
+<div id="wiki-buttons">
+<%= content %>
+</div>
+
+== Error404
+
+<div id="wiki-message">
+  <h1>Page not found</h1>
+  <p>Error 404.</p>
+  <p>The requested resource, "<%= url %>", does not exist.</p>
+  <p>It is possible that you typed the URL incorrectly or that the
+  referring resource is out of date.</p>
+</div>
+
+== BadVersionNumber
+
+<div id="wiki-message">
+  <p>The <%=page%> page has no version number <%=versionNum%>.</p>
+</div>

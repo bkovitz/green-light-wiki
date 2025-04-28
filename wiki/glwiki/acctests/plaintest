@@ -1,0 +1,14 @@
+REQUEST_METHOD=GET QUERY_STRING= REQUEST_URI=/TESTPLAIN/htmlTest.html TZ=PST8PDT python Main.py
+----
+Content-type: text/html
+
+<HTML>
+<HEAD>
+   <TITLE>test title</TITLE>
+</HEAD>
+<BODY>
+   Some body text begins here&#150;with an ampersand: &amp;.
+   <P>
+   Some more body <A HREF="http://nothing.com">text</A>.
+</BODY>
+</HTML>

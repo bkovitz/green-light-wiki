@@ -1,0 +1,154 @@
+@@ version 1; date 2003.8.22.13.28.15; author 24.238.67.221;
+[[Sand Box]] is a page just for playing around and experimenting with editing.
+
+If you click the "Edit" button at the bottom of the page, you'll see a screen where you can edit this page.
+
+A wiki's text-editing capabilities are very, very simple.
+
+You can put text into ''italic''.
+
+You can put text into '''bold'''.
+
+If you use the name of a page, like [[Sand Box]], the wiki automatically turns it into a link.
+
+And you can make a horizontal line like this:
+
+----
+
+To create a new page, edit an existing page to contain a link to the [[New Page]].  Save, and then click the link.  The wiki will then show you a screen where you can fill in the new page.  (Please don't fill in [[New Page]], though.  This way, it will serve as an example for how the process works.)
+
+Please don't modify the text from here or above.  It shows people the basics.  Below this line, please feel free to delete or change anything you like.  Experiment and see how to wiki!
+
+----
+
+Whoa....I ca just edit like this?
+
+Yep.  This is great.
+
+Another trick: you can type a URL and it automatically becomes a link.  Like this: http://google.com.
+
+----
+
+Is there a way to create a link, such as http://www.google.com, and also label it with, say Google. Does [[Google http://www.google.com]] work? How about [[http://www.google.com Google]]?
+
+Yes it does. Cool!
+@@ version 2; date 2003.9.27.19.27.42; author ;
+@@d1,32
+@@i33
+[[Sand Box]] is a page just for playing around and experimenting with editing.
+
+If you click the "Edit" button at the bottom of the page, you'll see a screen where you can edit this page.
+
+A wiki's text-editing capabilities are very, very simple.
+
+You can put text into ''italic''.
+
+You can put text into '''bold'''.
+
+If you use the name of a page, like [[Sand Box]], the wiki automatically turns it into a link.
+
+And you can make a horizontal line like this:
+
+----
+
+To create a new page, edit an existing page to contain a link to the [[New Page]].  Save, and then click the link.  The wiki will then show you a screen where you can fill in the new page.  (Please don't fill in [[New Page]], though.  This way, it will serve as an example for how the process works.)
+
+Please don't modify the text from here or above.  It shows people the basics.  Below this line, please feel free to delete or change anything you like.  Experiment and see how to wiki!
+
+----
+
+Whoa....I can just edit like this?
+
+Yep.  This is great.
+
+Another trick: you can type a URL and it automatically becomes a link.  Like this: http://google.com.
+
+----
+
+Is there a way to create a link, such as http://www.google.com, and also label it with, say Google. Does [[Google http://www.google.com]] work? How about [[http://www.google.com Google]]?
+
+@@ version 3; date 2003.10.16.23.29.37; author 171.64.51.81;
+@@d25
+@@i26
+Yep.  This is great. Or is it?  Wouldn't it be better to remain in control??
+@@ version 4; date 2003.11.10.14.41.16; author 63.154.244.47;
+@@ version 5; date 2003.12.15.12.50.13; author Ben Kovitz;
+@@i10
+
+You can make:
+
+* Items in
+
+* a list.
+@@ version 6; date 2003.12.28.20.59.5; author Ben Kovitz;
+@@i40
+
+= A top-level heading with a link in it: [[Lenore Thomson]] =
+@@ version 7; date 2003.12.29.19.4.50; author Ben Kovitz;
+@@i42
+
+Here is a new edit.
+@@ version 8; date 2004.5.14.7.1.48; author nn;
+@@i44
+
+[[http://www.71space.com/ 企业空间站]]
+[[http://www.71space.net/ 企业空间站]] 
+
+[[http://www.71space.net/domain_name/ 域名注册]]
+[[http://www.71space.net/virtual_host/ 虚拟主机]]
+[[http://www.71space.net/dedicated_servers/ 主机租用]]
+[[http://www.71space.net/mandatory_servers/ 主机托管]]
+[[http://www.71space.net/web_design/ 网站制作]]
+[[http://www.71space.net/web_promote/ 网站推广]] 
+
+@@ version 9; date 2004.7.13.0.3.30; author Ben Kovitz;
+@@i1
+James (or rb), I think I've messed something up on the server, which is why you had problems editing earlier.  Please try it again.  --[[Ben Kovitz]]
+
+----
+
+@@d54
+@@ version 10; date 2004.7.13.0.53.11; author Ben Kovitz;
+@@i2
+
+Ah, I see you got it to work over on [[Inferior Function]].  Thanks!!  An edit proposing a new hypothesis!!  Mille grazie!!  --[[Ben Kovitz]]
+@@d57
+@@i58
+[[http://www.71space.net/web_promote/ 网站推广]] 
+@@ version 11; date 2004.10.21.0.34.53; author Yelsel Neznol;
+@@i47
+[[fizzle de shizzle]]
+
+@@ version 12; date 2005.1.16.8.52.35; author 24.254.91.238;
+@@d53,9
+@@ version 13; date 2005.1.16.8.54.30; author 24.254.91.238;
+@@i53
+TEST SAVE
+@@ version 14; date 2005.1.17.6.15.15; author 24.254.91.238;
+@@d53
+@@i54
+TEST SAVE 2
+@@ version 15; date 2005.1.17.6.23.42; author 24.254.91.238;
+@@d53
+@@i54
+TEST SAVE 3
+@@ version 16; date 2005.1.17.7.3.59; author 24.254.91.238;
+@@d53
+@@i54
+TEST SAVE 4
+@@ version 17; date 2005.1.17.7.10.32; author 24.254.91.238;
+@@d53
+@@i54
+TEST SAVE 5
+@@ version 18; date 2005.1.17.7.24.21; author 24.254.91.238;
+@@d53
+@@i54
+TEST SAVE 6
+@@ version 19; date 2005.1.17.15.53.45; author 24.254.91.238;
+@@d53
+@@i54
+TEST SAVE 7
+@@ version 20; date 2025.4.28.5.12.42; author 47.208.206.32;
+@@i54
+
+TEST SAVE 8?

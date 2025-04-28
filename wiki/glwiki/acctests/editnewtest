@@ -1,0 +1,25 @@
+REQUEST_METHOD=GET QUERY_STRING= REQUEST_URI=/accWiki/Welcome_Page TZ=PST8PDT python Main.py
+----
+.*
+<html><head>
+  <title>edit Welcome Page</title>
+  <LINK REL="STYLESHEET" HREF="wiki.css" TYPE="text/css">\s*
+  <META NAME="keywords" CONTENT="wiki, green light wiki, unit test">\s*
+  <META NAME="robots" CONTENT="none">\s*
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">\s*
+</head>
+<body>\s*
+<div id="wiki-top">\s*
+<p>&nbsp;</p>
+<h1>edit Welcome Page</h1>
+</div>\s*
+<div id="wiki-edit">
+  <form action="http://greenlightwiki.com/Welcome_Page" method=post><textarea rows=24 cols=80 wrap=virtual name="text">Describe Welcome Page here.</textarea>
+<div id="wiki-edit-buttons">
+    <input type=submit value=" Save "><input type=hidden name="origVersion" value="0">
+  </div>
+</form>
+</div>\s*
+</body>
+</html>
+

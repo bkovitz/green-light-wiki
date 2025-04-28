@@ -1,3 +1,16 @@
+# Big files from lenore-exegesis
+dates
+wikilog*
+wiki.tracebacks
+*.taz
+wiki.sessions
+tags
+wiki.socket
+
+# IDE
+.vscode/
+.ds_store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

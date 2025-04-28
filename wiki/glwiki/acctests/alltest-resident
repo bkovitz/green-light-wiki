@@ -1,0 +1,7 @@
+REQUEST_METHOD=GET QUERY_STRING= REQUEST_URI=/accWiki/All%20Pages TZ=PST8PDT python WikiClient.py
+----
+.*
+.*<title>All Pages</title>
+.*
+<P CLASS="item"><A HREF="http://greenlightwiki.com/WelcomePage">Welcome Page</A></P>
+.*

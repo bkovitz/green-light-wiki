@@ -1,0 +1,20 @@
+REMOTE_ADDR=101.102.103.104 REQUEST_METHOD=POST QUERY_STRING= REQUEST_URI=/accWiki TZ=PST8PDT python WikiClient.py <<- EOF
+text=Some+text+%26+some+more+text%0D%0A+some+%27%27%27bold%27%27%27+text+at%0D%0A+the+start+of+a+%27%27line%27%27%0D%0A%0D%0A----%0D%0A%3D+Heading+1+%3D%0D%0A%0D%0Ahttp%3A%2F%2Fgoogle.com%0D%0A%5B%5Bhttp%3A%2F%2Fgoogle.com+Google%5D%5D%0D%0A%5B%5BGoogle+http%3A%2F%2Fgoogle.com+%5D%5D%0D%0A%0D%0A*+A+list+item.%0D%0A*+Another+%5B%5BListItem%5D%5D.%0D%0A&page=accWiki%2F
+EOF
+----
+Content-type: text/html
+Status: 303
+Location: http://greenlightwiki.com/WelcomePage
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  <title>Welcome Page</title>
+  <LINK REL="STYLESHEET" HREF="wiki.css" TYPE="text/css">\s*
+  <META NAME="keywords" CONTENT="wiki, green light wiki, unit test">\s*
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">\s*
+</head>
+<body>
+  <p>Saved successfully. Redirecting...</p>
+</body>
+</html>
+

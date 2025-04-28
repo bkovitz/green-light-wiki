@@ -1,0 +1,191 @@
+body {
+  background-color: #cccccc;
+}
+
+a {
+  color: #1C77AF;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+   border: none;
+}
+
+div#wiki-top {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 0;
+  padding: 0;
+  border: none;
+}
+
+#wiki-top .logo {
+  float: left;
+  left: 5px;
+  margin: 0;
+  padding: 0;
+  top: auto;
+}
+
+#wiki-top p {
+  color: #1C77AF;
+  margin: 0 0 0.5em 0;
+  padding: 0.6em 0 0 0;
+  font-family: Tahoma, Helvetica, sans-serif;
+  font-size: small;
+  font-weight: normal;
+}
+
+#wiki-top p.title {
+  margin: 0;
+  padding: 0;
+  padding-top: 14px;
+  vertical-align: bottom;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+div#wiki-message {
+  font-family: Times, Times Roman, Times New Roman, serif;
+  font-size: medium;
+  padding-top: 0;
+  padding-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 1em;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+div#wiki-message p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+div#wiki-content {
+  font-family: Times, Times Roman, Times New Roman, serif;
+  font-size: 13pt;
+  background: white;
+  border: solid 2px #999999;
+  padding-top: 0;
+  padding-bottom: 5px;
+  margin-top: 0;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#wiki-content p {
+  margin: 0 4pt;
+  padding: 0.5em 4pt;
+  border-left: solid 6pt white;
+}
+
+#wiki-content p.item {
+   margin-top: 0.2em;
+   margin-bottom: 0;
+}
+
+#wiki-content table {
+  margin: 0 4pt;
+  padding: 0.5em 4pt;
+  border-left: solid 6pt white;
+}
+
+#wiki-content td.bullet {
+  width: 1.5em;
+  vertical-align: baseline;
+}
+
+#wiki-content .changed {
+  border-left: solid 5pt #FFE100;
+}
+
+#wiki-content h1 {
+  font-size: large;
+  border-top: groove 1px black;
+  padding-top: 0.4em;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+  margin-left: 3pt;
+  margin-right: 3pt;
+  padding-left: 4pt;
+  border-left: solid 6pt white;
+}
+
+#wiki-content>h1:first-child {
+  border-top: none;
+}
+
+#wiki-content h2 {
+  font-size: medium;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+  margin-left: 3pt;
+  margin-right: 3pt;
+  padding-left: 4pt;
+  border-left: solid 6pt white;
+}
+
+#wiki-content a.external {
+  color: #50509e;
+}
+
+#wiki-content a.new {
+  color: #d00000;
+}
+
+div#wiki-buttons {
+  font-family: Tahoma, Helvetica, sans-serif;
+  margin-top: 0.4em;
+}
+
+#wiki-buttons form {
+  float: left;
+  margin: 0.3em;
+  font-size: small;
+  padding: 0;
+}
+
+#wiki-buttons .edit {
+   margin-right: 4.5em;
+}
+
+div#wiki-edit-buttons {
+  font-family: Tahoma, Helvetica, sans-serif;
+  margin-top: 0.4em;
+}
+
+#wiki-edit-buttons form {
+  float: left;
+  margin: 0.3em;
+  font-size: small;
+  padding: 0;
+}
+
+table.version-history td {
+  margin: 0;
+  padding: 0;
+}
+
+table.version-history thead td {
+  font-weight: bold;
+}
+
+table.version-history td.col1 {
+  width: 5em;
+}
+
+table.version-history td.col2 {
+  width: 13em;
+}
+
+table.version-history td.col3 {
+  width: 11em;
+}
+
+table.version-history td.col4 {
+  width: 12em;
+}

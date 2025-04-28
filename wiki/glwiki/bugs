@@ -1,0 +1,4 @@
+RecentChanges fails if there have never been any changes?
+
+Really should not create RecentChanges in parent directory, since that
+requires write access to the same directory that contains the cgi scripts.

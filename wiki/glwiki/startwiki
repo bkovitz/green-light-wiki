@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+python Main.py RESIDE >/dev/null 2>&1 &
+sleep 3

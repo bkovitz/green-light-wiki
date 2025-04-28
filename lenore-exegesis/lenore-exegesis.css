@@ -1,0 +1,40 @@
+body {
+  padding-top: 4pt;
+}
+
+div#wiki-top {
+  margin-right: 140px;
+}
+
+div#wiki-content {
+  margin-right: 139px;
+}
+
+div#wiki-buttons {
+  margin-right: 140px;
+}
+
+a {
+  color: #1C77AF;
+}
+
+#wiki-top p {
+  color: #1C77AF;
+}
+
+#wiki-top h1 {
+  color: #1C77AF;
+}
+
+#wiki-content a.external {
+  color: #50509e;
+}
+
+#wiki-content h1 a {
+  color: #1A7287;
+}
+
+
+#wiki-content h2 a {
+  color: #1A7287;
+}

@@ -1,0 +1,34 @@
+REQUEST_METHOD=GET QUERY_STRING= REQUEST_URI=/accWiki/Welcome_Page TZ=PST8PDT python Main.py
+----
+.*
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  <title>Welcome Page</title>
+  <LINK REL="STYLESHEET" HREF="wiki.css" TYPE="text/css">\s*
+  <META NAME="keywords" CONTENT="wiki, green light wiki, unit test">\s*
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">\s*
+</head>
+<body>\s*
+<div id="wiki-top">
+<P CLASS="logo"><A HREF="http://greenlightwiki.com/WelcomePage"><IMG SRC="http://greenlightwiki.com/b5WikiLogo.gif" BORDER=0></A></P>\s*
+<p>&nbsp;</p>
+<h1>Welcome Page</h1>
+</div>\s*
+<div id="wiki-content">
+<p>Some text &amp; some more text<br>some <STRONG>bold</STRONG> text at<br>the start of a <EM>line</EM></p>
+<p><HR></p>
+<h1>Heading 1</h1>
+<p><A HREF="http://google.com" CLASS="external">http://google.com</A> <A HREF="http://google.com" CLASS="external">Google</A> <A HREF="http://google.com" CLASS="external">Google</A></p>
+<table><tr><td class="bullet">&bull;<td>A list item.</td></tr></table>
+<table><tr><td class="bullet">&bull;<td>Another <A HREF="http://greenlightwiki.com/ListItem" CLASS="new">ListItem</A>.</td></tr></table>\s*
+</div>\s*
+<div id="wiki-buttons">
+<FORM ACTION="http://greenlightwiki.com/WelcomePage" METHOD=GET><INPUT TYPE=SUBMIT VALUE="  Edit  " CLASS="edit"><INPUT TYPE=HIDDEN NAME="action" VALUE="edit"></FORM><FORM ACTION="http://greenlightwiki.com/WelcomePage" METHOD=GET><INPUT TYPE=SUBMIT VALUE=" History "><INPUT TYPE=HIDDEN NAME="action" VALUE="history"></FORM><FORM ACTION="http://greenlightwiki.com/WelcomePage" METHOD=GET><INPUT TYPE=SUBMIT VALUE=" Home "></FORM><FORM ACTION="http://greenlightwiki.com/RecentChanges" METHOD=GET><INPUT TYPE=SUBMIT VALUE=" Recent "></FORM><FORM ACTION="http://greenlightwiki.com/AllPages" METHOD=GET><INPUT TYPE=SUBMIT VALUE="  All  "></FORM><div class="version">
+  <p>Version .*</p>
+  <p>Last edit by 101.102.103.104</p>
+</div>\s*
+</div>\s*
+</body>
+</html>
+
