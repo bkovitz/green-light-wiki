@@ -1,2 +1,1 @@
-# glwiki
-The Green Light Wiki
+# The Green Light Wiki
