@@ -15,7 +15,7 @@ class ut_Log:
         forceRemove("wikilog")
         log(fakeEnvironment, "DISP", "/heuristic/WelcomePage", "Unknown_User")
 
-        logFile = file("wikilog", "r")
+        logFile = open("wikilog", "r")
         logData = logFile.readlines()
 
         TEST_EQ(1, len(logData))
@@ -39,7 +39,7 @@ class ut_Log:
         forceRemove("wikilog")
         log(fakeEnvironment, "DISP", "", "")
 
-        logFile = file("wikilog", "r")
+        logFile = open("wikilog", "r")
         logData = logFile.readlines()
 
         TEST_EQ(1, len(logData))

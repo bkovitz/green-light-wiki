@@ -80,7 +80,7 @@ class ut_SavePage:
         forceRemove("TESTWIKI/PageTitle")
 
         originalText = "The first version of this file.\n"
-        wikiFile = VersionedFile2(file("TESTWIKI/PageTitle", "w+"))
+        wikiFile = VersionedFile2(open("TESTWIKI/PageTitle", "w+"))
         wikiFile.writeNewVersion("Dr. John Mittens", StringIO(originalText))
         wikiFile.close()
 

@@ -20,7 +20,7 @@ class ut_TextFile:
         TEST_EQ([], f.lines())
 
     def testLinesFromRealFile(self):
-        f = file(testFileName, "w")
+        f = open(testFileName, "w")
         f.write("first line\nsecond line\n")
         del f
 
@@ -31,7 +31,7 @@ class ut_TextFile:
         TEST_EQ("", str(TextFile(testFileName)))
 
     def testStrFromRealFile(self):
-        f = file(testFileName, "w")
+        f = open(testFileName, "w")
         f.write("first line\nsecond line\n")
         del f
 
@@ -40,7 +40,7 @@ class ut_TextFile:
     def testWriteNewFile(self):
         TextFile(testFileName).write("some text\nsome more text\n")
 
-        realFile = file(testFileName, "r")
+        realFile = open(testFileName, "r")
         TEST_EQ("some text\nsome more text\n", realFile.read())
 
     def testReadOneLineAtATime(self):
