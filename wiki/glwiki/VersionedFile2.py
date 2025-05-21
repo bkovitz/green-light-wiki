@@ -79,6 +79,7 @@ class VersionedFile2:
         else:
             return self.getVersionInfo(latestVersionNum).author
 
+    # NOTE: This is what we want for parsing
     def getVersionInfo(self, versionNum):
         try:
             return self._versions[versionNum].info
