@@ -3,15 +3,15 @@ import sys
 
 from CgiEnvironment import CgiEnvironment
 
-class ut_CgiEnvironment:
 
+class ut_CgiEnvironment:
     """Retrieves from environment dictionary with a few conveniences."""
 
     def testSimpleGet(self):
         dict = {
-            "QUERY_STRING" : "PageName",
-            "REQUEST_METHOD" : "POST",
-            "WIKI_DIR" : "dir",
+            "QUERY_STRING": "PageName",
+            "REQUEST_METHOD": "POST",
+            "WIKI_DIR": "dir",
         }
 
         env = CgiEnvironment(dict)
@@ -21,11 +21,10 @@ class ut_CgiEnvironment:
         TEST_EQ(env.get("WIKI_DIR"), "dir")
         TEST_EQ(env.get("UNDEFINED_VARIABLE"), "")
 
-
     def testQueryStringUnescaped(self):
         dict = {
-            "QUERY_STRING" : "",
-            "QUERY_STRING_UNESCAPED" : "PageName",
+            "QUERY_STRING": "",
+            "QUERY_STRING_UNESCAPED": "PageName",
         }
 
         env = CgiEnvironment(dict)

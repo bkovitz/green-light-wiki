@@ -6,11 +6,10 @@ from Html import HtmlPara
 
 class ut_StoryRectangle:
 
-   def testAll(self):
-      rect = StoryRectangle(HtmlPara("contents"))
+    def testAll(self):
+        rect = StoryRectangle(HtmlPara("contents"))
 
-      expect = \
-"""<TABLE CLASS="story" CELLPADDING="0" CELLSPACING="0">
+        expect = """<TABLE CLASS="story" CELLPADDING="0" CELLSPACING="0">
   <TR>
     <TD CLASS="story-tl"></TD>
     <TD CLASS="story-t"></TD>
@@ -31,4 +30,4 @@ class ut_StoryRectangle:
 </TABLE>
 """
 
-      TEST_EQ(expect, str(rect))
+        TEST_EQ(expect, str(rect))

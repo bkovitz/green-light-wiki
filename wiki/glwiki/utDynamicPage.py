@@ -4,14 +4,14 @@ from io import StringIO
 
 from DynamicPage import DynamicPage
 
+
 class ut_DynamicPage:
 
-   def testDisplayDynamicPage(self):
-      page = DynamicPage("TESTSTATIC/dynamicTest.html")
+    def testDisplayDynamicPage(self):
+        page = DynamicPage("TESTSTATIC/dynamicTest.html")
 
-      # TODO: add a test for preamble: that's the main purpose of StaticPage!
-      expect = \
-"""Content-type: text/html
+        # TODO: add a test for preamble: that's the main purpose of StaticPage!
+        expect = """Content-type: text/html
 
 <HTML><HEAD>
   <TITLE>test title</TITLE>
@@ -21,4 +21,4 @@ class ut_DynamicPage:
 </BODY>
 </HTML>
 """
-      TEST_EQ(expect, page.renderCgi())
+        TEST_EQ(expect, page.renderCgi())

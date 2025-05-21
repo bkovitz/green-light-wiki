@@ -4,8 +4,14 @@ from Misc import makeList, forceRemove
 
 from EditPage import EditPage
 
-from Html import Html, HtmlMeta, HtmlForm, HtmlTextArea, HtmlInputHidden, \
-   HtmlInputSubmit
+from Html import (
+    Html,
+    HtmlMeta,
+    HtmlForm,
+    HtmlTextArea,
+    HtmlInputHidden,
+    HtmlInputSubmit,
+)
 from VersionedFile2 import VersionedFile2
 from io import StringIO
 from WikiRepository import WikiRepository
@@ -18,48 +24,38 @@ now = 1065202518
 
 class ut_EditPage:
 
-   def setUp(self):
-      resetConfig()
-      clearSessionDict()
+    def setUp(self):
+        resetConfig()
+        clearSessionDict()
 
+    def testBasics(self):
+        self._createFileToDisplay()
 
-   def testBasics(self):
-      self._createFileToDisplay()
+        page = EditPage(
+            FakeEnvironment(WikiRepository("TESTWIKI"), "PageTitle", "George Gibbons")
+        )
 
-      page = EditPage(FakeEnvironment(
-         WikiRepository("TESTWIKI"),
-         "PageTitle",
-         "George Gibbons"
-      ))
+        page.renderHtml()
+        # no crash means pass
 
-      page.renderHtml()
-      # no crash means pass
+    def testNoRobots(self):
+        self._createFileToDisplay()
 
+        page = EditPage(
+            FakeEnvironment(WikiRepository("TESTWIKI"), "PageTitle", "George Gibbons")
+        )
 
-   def testNoRobots(self):
-      self._createFileToDisplay()
+        pageChunk = page.renderHtml()
+        TEST(NoRobots in [meta.__class__ for meta in makeList(pageChunk.metas)])
 
-      page = EditPage(FakeEnvironment(
-         WikiRepository("TESTWIKI"),
-         "PageTitle",
-         "George Gibbons"
-      ))
+    def testEditDiv(self):
+        self._createFileToDisplay()
 
-      pageChunk = page.renderHtml()
-      TEST(NoRobots in [meta.__class__ for meta in makeList(pageChunk.metas)])
+        page = EditPage(
+            FakeEnvironment(WikiRepository("TESTWIKI"), "PageTitle", "George Gibbons")
+        )
 
-
-   def testEditDiv(self):
-      self._createFileToDisplay()
-
-      page = EditPage(FakeEnvironment(
-         WikiRepository("TESTWIKI"),
-         "PageTitle",
-         "George Gibbons"
-      ))
-
-      expect = \
-"""<DIV ID="wiki-edit">
+        expect = """<DIV ID="wiki-edit">
   <FORM ACTION="http://greenlightwiki.com/PageTitle" METHOD=POST><TEXTAREA ROWS=24 COLS=80 WRAP=VIRTUAL NAME="text">First line
 Second line
 </TEXTAREA>
@@ -69,33 +65,28 @@ Second line
 </FORM>
 </DIV>
 """
-      TEST_EQ(str(expect), str(page.editDiv()))
-      TEST_EQ("edit Page Title", page.getTitle())
+        TEST_EQ(str(expect), str(page.editDiv()))
+        TEST_EQ("edit Page Title", page.getTitle())
 
+    def testEditDivWithLogin(self):
+        # just a test to verify that we don't crash
+        config.readConfigFile(StringIO("login to edit: yes\n"))
+        sessionId = SessionDatabase.makeSession(now, "128.129.130.131")
+        env = FakeEnvironment(
+            pathsList=["WIKI TESTWIKI/*"],
+            requestMethod="GET",
+            uri="/TESTWIKI/aPage",
+            sessionId=sessionId,
+        )
 
-   def testEditDivWithLogin(self):
-      # just a test to verify that we don't crash
-      config.readConfigFile(StringIO("login to edit: yes\n"))
-      sessionId = SessionDatabase.makeSession(now, "128.129.130.131")
-      env = FakeEnvironment(
-         pathsList=["WIKI TESTWIKI/*"],
-         requestMethod="GET",
-         uri="/TESTWIKI/aPage",
-         sessionId=sessionId,
-      )
+        page = EditPage(env)
 
-      page = EditPage(env)
+        TEST_EQ(str(page.contentDiv()), str(page.loginDiv()))
 
-      TEST_EQ(str(page.contentDiv()), str(page.loginDiv()))
+    def _createFileToDisplay(self):
+        forceRemove("TESTWIKI/PageTitle")
 
-
-   def _createFileToDisplay(self):
-      forceRemove("TESTWIKI/PageTitle")
-
-      originalText = "First line\nSecond line\n"
-      wikiFile = VersionedFile2(open("TESTWIKI/PageTitle", "w+"))
-      wikiFile.writeNewVersion(
-         "Dr. John Mittens",
-         StringIO(originalText)
-      )
-      wikiFile.close()
+        originalText = "First line\nSecond line\n"
+        wikiFile = VersionedFile2(open("TESTWIKI/PageTitle", "w+"))
+        wikiFile.writeNewVersion("Dr. John Mittens", StringIO(originalText))
+        wikiFile.close()

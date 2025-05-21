@@ -10,80 +10,79 @@ from Html import HtmlPara
 
 now = 1065202518
 
+
 class ut_MightRequireLogin:
 
-   def setUp(self):
-      resetConfig()
-      clearSessionDict()
+    def setUp(self):
+        resetConfig()
+        clearSessionDict()
 
+    def testNotLoggedIn(self):
+        config.readConfigFile(StringIO("login to edit: yes\n"))
 
-   def testNotLoggedIn(self):
-      config.readConfigFile(StringIO("login to edit: yes\n"))
+        sessionId = SessionDatabase.makeSession(now, "128.129.130.131")
 
-      sessionId = SessionDatabase.makeSession(now, "128.129.130.131")
+        env = FakeEnvironment(
+            pathsList=["WIKI TESTWIKI/*"],
+            requestMethod="GET",
+            uri="/TESTWIKI/aPage",
+            sessionId=sessionId,
+        )
 
-      env = FakeEnvironment(
-         pathsList=["WIKI TESTWIKI/*"],
-         requestMethod="GET",
-         uri="/TESTWIKI/aPage",
-         sessionId=sessionId,
-      )
+        page = MightRequireLogin(env)
 
-      page = MightRequireLogin(env)
+        TEST(page.needLogin())
 
-      TEST(page.needLogin())
+    def testLoggedIn(self):
+        config.readConfigFile(StringIO("login to edit: yes\n"))
 
+        sessionId = SessionDatabase.makeSession(now, "128.129.130.131")
+        SessionDatabase.setUserName(sessionId, "George Gibbons")
 
-   def testLoggedIn(self):
-      config.readConfigFile(StringIO("login to edit: yes\n"))
+        env = FakeEnvironment(
+            pathsList=["WIKI TESTWIKI/*"],
+            requestMethod="GET",
+            uri="/TESTWIKI/aPage",
+            sessionId=sessionId,
+        )
 
-      sessionId = SessionDatabase.makeSession(now, "128.129.130.131")
-      SessionDatabase.setUserName(sessionId, "George Gibbons")
+        page = MightRequireLogin(env)
 
-      env = FakeEnvironment(
-         pathsList=["WIKI TESTWIKI/*"],
-         requestMethod="GET",
-         uri="/TESTWIKI/aPage",
-         sessionId=sessionId,
-      )
+        TEST(not page.needLogin())
 
-      page = MightRequireLogin(env)
+    def testNotLoggedInButConfigDoesntRequireLogins(self):
+        config.readConfigFile(StringIO(""))
 
-      TEST(not page.needLogin())
+        sessionId = SessionDatabase.makeSession(now, "128.129.130.131")
 
+        env = FakeEnvironment(
+            pathsList=["WIKI TESTWIKI/*"],
+            requestMethod="GET",
+            uri="/TESTWIKI/aPage",
+            sessionId=sessionId,
+        )
 
-   def testNotLoggedInButConfigDoesntRequireLogins(self):
-      config.readConfigFile(StringIO(""))
+        page = MightRequireLogin(env)
 
-      sessionId = SessionDatabase.makeSession(now, "128.129.130.131")
+        TEST(not page.needLogin())
 
-      env = FakeEnvironment(
-         pathsList=["WIKI TESTWIKI/*"],
-         requestMethod="GET",
-         uri="/TESTWIKI/aPage",
-         sessionId=sessionId,
-      )
-
-      page = MightRequireLogin(env)
-
-      TEST(not page.needLogin())
-
-
-   def testLoginDiv(self):
-      config.readConfigFile(StringIO(
-"""login to edit: yes
+    def testLoginDiv(self):
+        config.readConfigFile(
+            StringIO(
+                """login to edit: yes
 default page:     Default_Page
 url prefix:       http://greenlightwiki.com/testWiki/
-"""))
+"""
+            )
+        )
 
-      env = FakeEnvironment(
-         pathsList="WIKI testWiki/*",
-         requestMethod="GET",
-         uri="testWiki/aPage",
-      )
+        env = FakeEnvironment(
+            pathsList="WIKI testWiki/*",
+            requestMethod="GET",
+            uri="testWiki/aPage",
+        )
 
-      expect = \
-"""<DIV ID="wiki-message">
+        expect = """<DIV ID="wiki-message">
   <FORM ACTION="http://greenlightwiki.com/testWiki/aPage" METHOD=POST>
     <INPUT TYPE=HIDDEN NAME="action" VALUE="login"><INPUT TYPE=HIDDEN NAME="deferredAction" VALUE="edit"><P><A HREF="http://greenlightwiki.com/testWiki/Default_Page">Default Page</A></P>
     <H1>Log in</H1>
@@ -96,8 +95,8 @@ url prefix:       http://greenlightwiki.com/testWiki/
 </DIV>
 """
 
-      page = MightRequireLogin(env)
+        page = MightRequireLogin(env)
 
-      got = page.genericLoginDiv("edit", HtmlPara("Message goes here."))
+        got = page.genericLoginDiv("edit", HtmlPara("Message goes here."))
 
-      TEST_EQ(expect, str(got))
+        TEST_EQ(expect, str(got))

@@ -3,13 +3,13 @@ from teest import *
 from PlainPage import PlainPage
 from BadPage import BadPage
 
+
 class ut_PlainPage:
 
-   def testDisplayPlainPage(self):
-      page = PlainPage("TESTPLAIN/htmlTest.html")
+    def testDisplayPlainPage(self):
+        page = PlainPage("TESTPLAIN/htmlTest.html")
 
-      expect = \
-"""Content-type: text/html
+        expect = """Content-type: text/html
 
 <HTML>
 <HEAD>
@@ -22,15 +22,14 @@ class ut_PlainPage:
 </BODY>
 </HTML>
 """
-      TEST_EQ(expect, page.renderCgi())
+        TEST_EQ(expect, page.renderCgi())
 
+    def testNonexistentPlainPage(self):
+        page = PlainPage("TESTPLAIN/nonexistent.html")
 
-   def testNonexistentPlainPage(self):
-      page = PlainPage("TESTPLAIN/nonexistent.html")
+        TEST_EQ(BadPage, page.__class__)
 
-      TEST_EQ(BadPage, page.__class__)
+        got = page.renderCgi()
 
-      got = page.renderCgi()
-
-      TEST(got.find("TESTPLAIN/nonexistent.html") >= 0)
-      TEST(got.find("Status: 404\n") >= 0)
+        TEST(got.find("TESTPLAIN/nonexistent.html") >= 0)
+        TEST(got.find("Status: 404\n") >= 0)

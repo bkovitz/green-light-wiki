@@ -11,31 +11,35 @@ from BodyExtractor import BodyExtractor
 
 class ut_Chunk:
 
-   def testPreamble(self):
-      page = DisplayPage(FakeEnvironment(
-         WikiRepository("TESTWIKI"),
-         "PageThatExists",
-         "George Gibbons",
-      ))
+    def testPreamble(self):
+        page = DisplayPage(
+            FakeEnvironment(
+                WikiRepository("TESTWIKI"),
+                "PageThatExists",
+                "George Gibbons",
+            )
+        )
 
-      page._preamble = BodyExtractor(StringIO(
-"""<html><head>
+        page._preamble = BodyExtractor(
+            StringIO(
+                """<html><head>
   <LINK REL="STYLESHEET" HREF="/ncbc/wiki.css" TYPE="text/css">
 </head>
 <body>
    <p>Preamble paragraph</p>
 </body>
 </html>
-"""))
+"""
+            )
+        )
 
-      expect = \
-"""\n   <p>Preamble paragraph</P>
+        expect = """\n   <p>Preamble paragraph</P>
 
 TOP
 MESSAGE
 CONTENT
 BOTTOM
 """
-      got = WikiPageBodyChunk(page, "TOP", "MESSAGE", "CONTENT", "BOTTOM")
+        got = WikiPageBodyChunk(page, "TOP", "MESSAGE", "CONTENT", "BOTTOM")
 
-      TEST_EQ(expect, str(got))
+        TEST_EQ(expect, str(got))

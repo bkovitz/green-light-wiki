@@ -11,127 +11,118 @@ from io import StringIO
 from Html import Html, HtmlRefresh, HtmlTextArea, NoRobots, HtmlDiv
 from VersionedFile2 import VersionedFile2
 import SessionDatabase
-from Chunks import SuccessfulSaveChunk, CouldntSaveDueToConflictChunk, \
-   EditChunk
+from Chunks import SuccessfulSaveChunk, CouldntSaveDueToConflictChunk, EditChunk
 
 
 class ut_SavePage:
 
-   def setUp(self):
-      clearSessionDict()
+    def setUp(self):
+        clearSessionDict()
 
+    def tearDown(self):
+        clearSessionDict()
 
-   def tearDown(self):
-      clearSessionDict()
+    def testSuccessfulSave(self):
+        forceRemove("TESTWIKI/PageTitle")
 
+        sessionId = SessionDatabase.makeSession(time(), "128.129.130.131")
 
-   def testSuccessfulSave(self):
-      forceRemove("TESTWIKI/PageTitle")
+        page = SavePage(
+            FakeEnvironment(
+                WikiRepository("TESTWIKI"),
+                "PageTitle",
+                "George Gibbons",
+                StringIO("First line\r\n\r\nSecond line\r\n"),
+                formDict={"origVersion": "0"},
+                sessionId=sessionId,
+            )
+        )
+        page.action()
 
-      sessionId = SessionDatabase.makeSession(time(), "128.129.130.131")
+        # check the redirect
 
-      page = SavePage(FakeEnvironment(
-         WikiRepository("TESTWIKI"),
-         "PageTitle",
-         "George Gibbons",
-         StringIO("First line\r\n\r\nSecond line\r\n"),
-         formDict={"origVersion": "0"},
-         sessionId = sessionId
-      ))
-      page.action()
+        got = page.renderCgi()
+        TEST(got.find("Status: 303\n") >= 0)
+        TEST(got.find("Location: http://greenlightwiki.com/PageTitle\n") >= 0)
 
-      # check the redirect
+        # TODO: check the pending message
 
-      got = page.renderCgi()
-      TEST(got.find("Status: 303\n") >= 0)
-      TEST(got.find("Location: http://greenlightwiki.com/PageTitle\n") >= 0)
+        messageChunkClass, pageName = SessionDatabase.getPendingMessage(sessionId)
+        TEST_EQ(SuccessfulSaveChunk, messageChunkClass)
+        TEST_EQ(("Page Title",), pageName)
 
-      # TODO: check the pending message
+        # check that the file was actually saved
 
-      messageChunkClass, pageName = \
-         SessionDatabase.getPendingMessage(sessionId)
-      TEST_EQ(SuccessfulSaveChunk, messageChunkClass)
-      TEST_EQ(("Page Title",), pageName)
+        newFile = file("TESTWIKI/PageTitle", "r")
+        expect = ["First line\n", "\n", "Second line\n"]
+        versionedFile = VersionedFile2(newFile)
+        got = versionedFile.getVersion(1)
+        TEST_EQ(expect, got)
 
-      # check that the file was actually saved
+        # now check that the DisplayPage shows a confirmation message
 
-      newFile = file("TESTWIKI/PageTitle", "r")
-      expect = ["First line\n", "\n", "Second line\n"]
-      versionedFile = VersionedFile2(newFile)
-      got = versionedFile.getVersion(1)
-      TEST_EQ(expect, got)
+        page = DisplayPage(
+            FakeEnvironment(
+                WikiRepository("TESTWIKI"),
+                "PageTitle",
+                "George Gibbons",
+                sessionId=sessionId,
+            )
+        )
+        page.makeData()
 
-      # now check that the DisplayPage shows a confirmation message
+        TEST_EQ(
+            SuccessfulSaveChunk(page, "Page Title", WikiRepository("TESTWIKI")),
+            page.getBody().message,
+        )
 
-      page = DisplayPage(FakeEnvironment(
-         WikiRepository("TESTWIKI"),
-         "PageTitle",
-         "George Gibbons",
-         sessionId = sessionId
-      ))
-      page.makeData()
+    def testFailToSavePage(self):
+        forceRemove("TESTWIKI/PageTitle")
 
-      TEST_EQ(
-         SuccessfulSaveChunk(page, "Page Title", WikiRepository("TESTWIKI")),
-         page.getBody().message
-      )
+        originalText = "The first version of this file.\n"
+        wikiFile = VersionedFile2(file("TESTWIKI/PageTitle", "w+"))
+        wikiFile.writeNewVersion("Dr. John Mittens", StringIO(originalText))
+        wikiFile.close()
 
+        page = SavePage(
+            FakeEnvironment(
+                WikiRepository("TESTWIKI"),
+                "PageTitle",
+                "George Gibbons",
+                StringIO("Some text\nthat won't get saved\n"),
+                formDict={"origVersion": "0"},
+            )
+        )
+        page.action()
 
-   def testFailToSavePage(self):
-      forceRemove("TESTWIKI/PageTitle")
+        # check that there is *not* a redirect
 
-      originalText = "The first version of this file.\n"
-      wikiFile = VersionedFile2(file("TESTWIKI/PageTitle", "w+"))
-      wikiFile.writeNewVersion(
-         "Dr. John Mittens",
-         StringIO(originalText)
-      )
-      wikiFile.close()
+        got = page.renderCgi()
+        TEST(got.find("Status: 303\n") < 0)
 
-      page = SavePage(FakeEnvironment(
-         WikiRepository("TESTWIKI"),
-         "PageTitle",
-         "George Gibbons",
-         StringIO("Some text\nthat won't get saved\n"),
-         formDict={"origVersion": "0"}
-      ))
-      page.action()
+        # expect = Html("Conflicting edits on Page Title")
+        # expect.addHeadItem([
+        # noRobots()
+        # ])
 
-      # check that there is *not* a redirect
+        # check "failed to save" message
 
-      got = page.renderCgi()
-      TEST(got.find("Status: 303\n") < 0)
+        body = page.getBody()
 
+        TEST_EQ(
+            CouldntSaveDueToConflictChunk(
+                page, "PageTitle", "Dr. John Mittens", WikiRepository("TESTWIKI")
+            ),
+            body.message,
+        )
 
-      #expect = Html("Conflicting edits on Page Title")
-      #expect.addHeadItem([
-         #noRobots()
-      #])
+        # check the content area
 
-      # check "failed to save" message
+        TEST_EQ(EditChunk(page, "Some text\nthat won't get saved\n"), body.content)
 
-      body = page.getBody()
+        # check the page file
 
-      TEST_EQ(
-         CouldntSaveDueToConflictChunk(
-            page,
-            "PageTitle",
-            "Dr. John Mittens",
-            WikiRepository("TESTWIKI")
-         ),
-         body.message
-      )
-
-      # check the content area
-
-      TEST_EQ(
-         EditChunk(page, "Some text\nthat won't get saved\n"),
-         body.content
-      )
-
-      # check the page file
-
-      wikiFile = VersionedFile2(file("TESTWIKI/PageTitle", "r"))
-      TEST_EQ(1, wikiFile.getLatestVersionNum())
-      TEST_EQ([originalText], wikiFile.getLatestVersion())
-      wikiFile.close()
+        wikiFile = VersionedFile2(file("TESTWIKI/PageTitle", "r"))
+        TEST_EQ(1, wikiFile.getLatestVersionNum())
+        TEST_EQ([originalText], wikiFile.getLatestVersion())
+        wikiFile.close()

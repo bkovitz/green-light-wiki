@@ -7,60 +7,56 @@ from Html import Html, HtmlTitle, HtmlLink
 from HtmlMisc import metaKeywords
 from Config import config
 
+
 class StaticPage(RequestedPage):
 
-   def __init__(self, filename, wikiName=""):
-      self._wikiName = wikiName
+    def __init__(self, filename, wikiName=""):
+        self._wikiName = wikiName
 
-      if isinstance(filename, File):
-         self._f = filename
-      elif filename.endswith(".php"):
-         self._f = PipeFromPhp(filename)
-      else:
-         self._f = NonwikiFile(filename)
+        if isinstance(filename, File):
+            self._f = filename
+        elif filename.endswith(".php"):
+            self._f = PipeFromPhp(filename)
+        else:
+            self._f = NonwikiFile(filename)
 
-      if not self._f.exists():
-         self.__class__ = BadPage
-         BadPage.__init__(self, filename)
+        if not self._f.exists():
+            self.__class__ = BadPage
+            BadPage.__init__(self, filename)
 
-      self._cgiLeader = [ "Content-type: text/html" ]
+        self._cgiLeader = ["Content-type: text/html"]
 
+    def getCommand(self):
+        return "STATIC"
 
-   def getCommand(self):
-      return "STATIC"
+    def renderHtml(self):
+        extractor = self._makePageExtractor()
 
+        cgiLeaderFromExtractor = extractor.cgiLeader()
+        if cgiLeaderFromExtractor:
+            self.setCgiLeader(cgiLeaderFromExtractor)
 
-   def renderHtml(self):
-      extractor = self._makePageExtractor()
+        html = Html()
+        html.addHeadItem(HtmlTitle(extractor.title()))
 
-      cgiLeaderFromExtractor = extractor.cgiLeader()
-      if cgiLeaderFromExtractor:
-         self.setCgiLeader(cgiLeaderFromExtractor)
+        preamble = self.preamble()
+        html.addHeadItem(preamble.links())
 
-      html = Html()
-      html.addHeadItem(HtmlTitle(extractor.title()))
+        links = extractor.links()
+        if links:
+            html.addHeadItem(links)
 
-      preamble = self.preamble()
-      html.addHeadItem(preamble.links())
+        html.add(preamble.body())
 
-      links = extractor.links()
-      if links:
-         html.addHeadItem(links)
+        html.add(extractor.body())
 
-      html.add(preamble.body())
+        return str(html)
 
-      html.add(extractor.body())
-      
-      return str(html)
+    def _makePageExtractor(self):
+        return BodyExtractor(self._f)
 
+    def setCgiLeader(self, cgiLeader):
+        self._cgiLeader = cgiLeader
 
-   def _makePageExtractor(self):
-      return BodyExtractor(self._f)
-
-
-   def setCgiLeader(self, cgiLeader):
-      self._cgiLeader = cgiLeader
-
-
-   def cgiLeader(self):
-      return "\n".join(self._cgiLeader) + "\n"
+    def cgiLeader(self):
+        return "\n".join(self._cgiLeader) + "\n"

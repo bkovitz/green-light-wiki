@@ -4,210 +4,192 @@ from difflib import SequenceMatcher
 from WikiPage import WikiPage
 from WikiText2 import WikiText2
 from VersionedFile2 import VersionedFile2, VersionInfo, BadVersionException
-from Html import Html, HtmlTable, HtmlRow, HtmlDatum, HtmlLink, \
-   HtmlAttribute, OneRowTable, HtmlForm, HtmlInputSubmit, HtmlInputHidden, \
-   ButtonLink, HtmlMeta, HtmlAnchor, HtmlImage, HtmlPara, Class
+from Html import (
+    Html,
+    HtmlTable,
+    HtmlRow,
+    HtmlDatum,
+    HtmlLink,
+    HtmlAttribute,
+    OneRowTable,
+    HtmlForm,
+    HtmlInputSubmit,
+    HtmlInputHidden,
+    ButtonLink,
+    HtmlMeta,
+    HtmlAnchor,
+    HtmlImage,
+    HtmlPara,
+    Class,
+)
 from Config import config
 from HtmlMisc import metaKeywords
-from Chunks import BadVersionNumberChunk, LinkToExistingPageChunk, \
-   VersionInfoChunk, ChangedParagraphChunk
+from Chunks import (
+    BadVersionNumberChunk,
+    LinkToExistingPageChunk,
+    VersionInfoChunk,
+    ChangedParagraphChunk,
+)
 from CommandLine import cmdArgs
 import SessionDatabase
 
 
 class NoVersionNumber(Exception):
-   pass
+    pass
 
 
 class RangeList:
 
-   def __init__(self):
-      self._list = []
+    def __init__(self):
+        self._list = []
 
+    def append(self, lowerBound, upperBound):
+        """lowerBound is inclusive, upperBound is exclusive, just like other
+        Python ranges"""
+        self._list.append([lowerBound, upperBound])
 
-   def append(self, lowerBound, upperBound):
-      """lowerBound is inclusive, upperBound is exclusive, just like other
-      Python ranges"""
-      self._list.append([lowerBound, upperBound])
+    def hasIndexInRange(self, index):
+        for range_ in self._list:
+            if index >= range_[0] and index < range_[1]:
+                return True
 
-
-   def hasIndexInRange(self, index):
-      for range_ in self._list:
-         if index >= range_[0] and index < range_[1]:
-            return True
-
-      return False
+        return False
 
 
 class DisplayPage(WikiPage):
 
-   def __init__(self, environment, actualPageName=None):
-      WikiPage.__init__(self, environment)
-      if not actualPageName:
-         actualPageName = WikiPage.getPageName(self)
-      self._actualPageName = actualPageName
-      self._versionManager = VersionedFile2(self._openForReading())
+    def __init__(self, environment, actualPageName=None):
+        WikiPage.__init__(self, environment)
+        if not actualPageName:
+            actualPageName = WikiPage.getPageName(self)
+        self._actualPageName = actualPageName
+        self._versionManager = VersionedFile2(self._openForReading())
 
+    def getPageName(self):
+        return self._actualPageName
 
-   def getPageName(self):
-      return self._actualPageName
+    def getCommand(self):
+        return "DISP"
 
+    def getVersionManager(self):
+        return self._versionManager
 
-   def getCommand(self):
-      return "DISP"
+    def getMessage(self):
+        messageChunkClass, args = SessionDatabase.getPendingMessage(self.getSessionId())
 
+        if messageChunkClass is not None:
+            return apply(messageChunkClass, (self,) + args + (self.getRepository(),))
 
-   def getVersionManager(self):
-      return self._versionManager
+    def contentParas(self):
+        requestedVersionNumber = self._getRequestedVersionNumber()
+        requestedWikiText = self._wikiText(
+            self._versionManager.getVersion(requestedVersionNumber)
+        )
+        previousAuthorsWikiText = self._wikiText(
+            self._versionManager.getPreviousAuthorsLastEdit(requestedVersionNumber)
+        )
 
+        if previousAuthorsWikiText:
+            holders = self._changeBars(previousAuthorsWikiText, requestedWikiText)
+        else:
+            holders = requestedWikiText
 
-   def getMessage(self):
-      messageChunkClass, args = \
-         SessionDatabase.getPendingMessage(self.getSessionId())
+        paragraphs = [holder.makeChunk(self) for holder in holders]
 
-      if messageChunkClass is not None:
-         return apply(
-            messageChunkClass,
-            (self,) + args + (self.getRepository(),)
-         )
+        # put numbers in the numbered lists
+        listItemNumber = 0
+        for paragraph in paragraphs:
+            if paragraph.isListBreak():
+                listItemNumber = 0
+            if paragraph.needsNumber():
+                listItemNumber += 1
+                paragraph.number = listItemNumber
 
+        return paragraphs
 
-   def contentParas(self):
-      requestedVersionNumber = self._getRequestedVersionNumber()
-      requestedWikiText = self._wikiText(
-         self._versionManager.getVersion(requestedVersionNumber)
-      )
-      previousAuthorsWikiText = self._wikiText(
-         self._versionManager.getPreviousAuthorsLastEdit(requestedVersionNumber)
-      )
+    def _wikiText(self, version):
+        if version is None:
+            return None
+        else:
+            return WikiText2(version, self.getRepository()).makeParas()
 
-      if previousAuthorsWikiText:
-         holders = self._changeBars(previousAuthorsWikiText, requestedWikiText)
-      else:
-         holders = requestedWikiText
+    def _changeBars(self, previousAuthorsWikiText, requestedWikiText):
+        unchangedRanges = RangeList()
+        matcher = SequenceMatcher(None)
+        matcher.set_seqs(previousAuthorsWikiText, requestedWikiText)
+        for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+            if tag == "equal":
+                unchangedRanges.append(j1, j2)
 
-      paragraphs = [holder.makeChunk(self) for holder in holders]
+        wikiTextWithChangeBars = requestedWikiText[:]
+        for index in range(len(wikiTextWithChangeBars)):
+            if not unchangedRanges.hasIndexInRange(index):
+                wikiTextWithChangeBars[index].makeChanged()
 
-      # put numbers in the numbered lists
-      listItemNumber = 0
-      for paragraph in paragraphs:
-         if paragraph.isListBreak():
-            listItemNumber = 0
-         if paragraph.needsNumber():
-            listItemNumber += 1
-            paragraph.number = listItemNumber
+        return wikiTextWithChangeBars
 
-      return paragraphs
+    def buttons(self):
+        try:
+            versionInfo = self._versionManager.getVersionInfo(
+                self._getRequestedVersionNumber()
+            )
+        # except BadVersionException, e:
+        except BadVersionException as e:
+            versionInfo = VersionInfo(e.versionNum, "(unknown)", "(unknown)")
 
+        return [
+            self.editButton(),
+            self.historyButton(),
+            self.homeButton(),
+            self.recentButton(),
+            self.allButton(),
+            VersionInfoChunk(
+                self, versionInfo.versionNum, versionInfo.date, versionInfo.author
+            ),
+        ]
 
-   def _wikiText(self, version):
-      if version is None:
-         return None
-      else:
-         return WikiText2(version, self.getRepository()).makeParas()
+    def editButton(self):
+        return HtmlForm(
+            action=config.makeUrl(self.getWikiName(), self.getPageName()),
+            method="GET",
+            items=[
+                HtmlInputSubmit("  Edit  ", attrs=Class("edit")),
+                HtmlInputHidden("action", "edit"),
+            ],
+        )
 
+    def buttonSpacer(self):
+        return HtmlDiv(class_="spacer", data="&nbsp;")
 
-   def _changeBars(self, previousAuthorsWikiText, requestedWikiText):
-      unchangedRanges = RangeList()
-      matcher = SequenceMatcher(None)
-      matcher.set_seqs(previousAuthorsWikiText, requestedWikiText)
-      for tag, i1, i2, j1, j2 in matcher.get_opcodes():
-         if tag == "equal":
-            unchangedRanges.append(j1, j2)
+    def homeButton(self):
+        return ButtonLink(config.homeUrl(self.getWikiName()), " Home ")
 
-      wikiTextWithChangeBars = requestedWikiText[:]
-      for index in range(len(wikiTextWithChangeBars)):
-         if not unchangedRanges.hasIndexInRange(index):
-            wikiTextWithChangeBars[index].makeChanged()
+    def recentButton(self):
+        return ButtonLink(
+            config.makeUrl(self.getWikiName(), "RecentChanges"), " Recent "
+        )
 
-      return wikiTextWithChangeBars
+    def allButton(self):
+        return ButtonLink(config.makeUrl(self.getWikiName(), "AllPages"), "  All  ")
 
+    def historyButton(self):
+        return HtmlForm(
+            action=self.getPageUrl(),
+            method="GET",
+            items=[HtmlInputSubmit(" History "), HtmlInputHidden("action", "history")],
+        )
 
-   def buttons(self):
-      try:
-         versionInfo = self._versionManager.getVersionInfo(
-            self._getRequestedVersionNumber()
-         )
-      #except BadVersionException, e:
-      except BadVersionException as e:
-         versionInfo = VersionInfo(e.versionNum, "(unknown)", "(unknown)")
+    def _readlines(self):
+        return self._versionManager.getVersion(self._getRequestedVersionNumber())
 
-      return [
-         self.editButton(),
-         self.historyButton(),
-         self.homeButton(),
-         self.recentButton(),
-         self.allButton(),
-         VersionInfoChunk(
-            self,
-            versionInfo.versionNum,
-            versionInfo.date,
-            versionInfo.author
-         ),
-      ]
+    def _getPageFile(self):
+        return self._repository.pageFile(self.getPageName())
 
+    def _openForReading(self):  # TODO: OAOO
+        return self._repository.pageFile(self.getPageName()).openForReading()
 
-   def editButton(self):
-      return HtmlForm(
-         action=config.makeUrl(
-            self.getWikiName(),
-            self.getPageName()
-         ),
-         method="GET",
-         items=[
-            HtmlInputSubmit("  Edit  ", attrs=Class("edit")),
-            HtmlInputHidden("action", "edit")
-         ]
-      )
-
-
-   def buttonSpacer(self):
-      return HtmlDiv(class_="spacer", data="&nbsp;")
-
-
-   def homeButton(self):
-      return ButtonLink(config.homeUrl(self.getWikiName()), " Home ")
-
-
-   def recentButton(self):
-      return ButtonLink(
-         config.makeUrl(self.getWikiName(), "RecentChanges"),
-         " Recent "
-      )
-
-
-   def allButton(self):
-      return ButtonLink(
-         config.makeUrl(self.getWikiName(), "AllPages"),
-         "  All  "
-      )
-
-
-   def historyButton(self):
-      return HtmlForm(
-        action=self.getPageUrl(),
-        method="GET",
-         items=[
-            HtmlInputSubmit(" History "),
-            HtmlInputHidden("action", "history")
-         ]
-      )
-
-
-   def _readlines(self):
-      return self._versionManager.getVersion(self._getRequestedVersionNumber())
-
-
-   def _getPageFile(self):
-      return self._repository.pageFile(self.getPageName())
-
-
-   def _openForReading(self):  #TODO: OAOO
-      return self._repository.pageFile(self.getPageName()).openForReading()
-
-
-   def _getRequestedVersionNumber(self):
-      try:
-         return int(self.getQueryDict()["version"][0])
-      except KeyError:
-         return self._versionManager.getLatestVersionNum()
+    def _getRequestedVersionNumber(self):
+        try:
+            return int(self.getQueryDict()["version"][0])
+        except KeyError:
+            return self._versionManager.getLatestVersionNum()

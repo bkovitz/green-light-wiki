@@ -5,27 +5,25 @@ from ShellCommand import ShellCommand
 
 class ut_ShellCommand:
 
-   def testSimple(self):
-      cmd = ShellCommand('echo "some text"')
+    def testSimple(self):
+        cmd = ShellCommand('echo "some text"')
 
-      cmd.run()
+        cmd.run()
 
-      TEST_EQ(0, cmd.getResult())
-      TEST_EQ("some text\n", cmd.getStdout())
+        TEST_EQ(0, cmd.getResult())
+        TEST_EQ("some text\n", cmd.getStdout())
 
+    def testNoncommand(self):
+        cmd = ShellCommand("not-a-real-command")
 
-   def testNoncommand(self):
-      cmd = ShellCommand('not-a-real-command')
+        cmd.run()
 
-      cmd.run()
+        TEST_NE(0, cmd.getResult())
+        TEST(len(cmd.getStdout()) > 0)
 
-      TEST_NE(0, cmd.getResult())
-      TEST(len(cmd.getStdout()) > 0)
+    def testCommandThatReadsFromStdin(self):
+        cmd = ShellCommand("cat > /dev/null")
 
+        cmd.run()
 
-   def testCommandThatReadsFromStdin(self):
-      cmd = ShellCommand("cat > /dev/null")
-
-      cmd.run()
-
-      TEST_EQ(0, cmd.getResult())
+        TEST_EQ(0, cmd.getResult())

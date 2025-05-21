@@ -1,5 +1,4 @@
-expect = \
-"""Content-type: text/html
+expect = """Content-type: text/html
 Set-Cookie: wiki-session={(20)}; Domain=.greenlightwiki.com; Max-Age=5184000; Path=/; Version=1;
 
 <HTML><HEAD>

@@ -7,33 +7,33 @@ from Config import config
 
 
 def badPageFactory(environment):
-   return BadPage(environment.getUri())
+    return BadPage(environment.getUri())
 
 
 def staticPageFactory(environment):
-   return StaticPage(environment.getPageName(), environment.getWikiName())
+    return StaticPage(environment.getPageName(), environment.getWikiName())
 
 
 def wikiPage2Factory(environment):
-   return makeWikiPage(environment)
+    return makeWikiPage(environment)
 
 
 def plainPageFactory(environment):
-   return PlainPage(environment.getPageName())
+    return PlainPage(environment.getPageName())
 
 
 def dynamicPageFactory(environment):
-   return DynamicPage(environment.getPageName())
+    return DynamicPage(environment.getPageName())
 
 
 _pageFactories = {
-   "BAD": badPageFactory,
-   "STATIC": staticPageFactory,
-   "WIKI": wikiPage2Factory,
-   "PLAIN": plainPageFactory,
-   "DYNAMIC": dynamicPageFactory,
+    "BAD": badPageFactory,
+    "STATIC": staticPageFactory,
+    "WIKI": wikiPage2Factory,
+    "PLAIN": plainPageFactory,
+    "DYNAMIC": dynamicPageFactory,
 }
 
 
 def getPageFactory(fileType):
-   return _pageFactories[fileType]
+    return _pageFactories[fileType]

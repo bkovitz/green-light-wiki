@@ -1,6 +1,7 @@
 import re
 
 from numpy import isin
+
 # from types import StringType
 
 from Helpers import cmp, apply
@@ -9,91 +10,77 @@ format1 = re.compile("(?P<month>[A-Z]+)\s*(?P<day>\d+),\s*(?P<year>\d+)")
 format2 = re.compile("(?P<day>\d+)-(?P<month>[A-Z]+)-(?P<year>\d+)")
 
 monthDict = {
-   "JAN": 1,
-   "FEB": 2,
-   "MAR": 3,
-   "APR": 4,
-   "MAY": 5,
-   "JUN": 6,
-   "JUL": 7,
-   "AUG": 8,
-   "SEP": 9,
-   "OCT": 10,
-   "NOV": 11,
-   "DEC": 12
+    "JAN": 1,
+    "FEB": 2,
+    "MAR": 3,
+    "APR": 4,
+    "MAY": 5,
+    "JUN": 6,
+    "JUL": 7,
+    "AUG": 8,
+    "SEP": 9,
+    "OCT": 10,
+    "NOV": 11,
+    "DEC": 12,
 }
+
 
 class Date:
 
-   def __init__(self, date):
-      if type(date) == str:
-         self._parseString(date)
-      else:
-         self._normalDate = date
+    def __init__(self, date):
+        if type(date) == str:
+            self._parseString(date)
+        else:
+            self._normalDate = date
 
+    def __str__(self):
+        if self._normalDate == None:
+            return "(unknown date)"
+        else:
+            return "%s %d, %d" % (
+                self._normalDate.monthName(),
+                self._normalDate.day(),
+                self._normalDate.year(),
+            )
 
-   def __str__(self):
-      if self._normalDate == None:
-         return "(unknown date)"
-      else:
-         return "%s %d, %d" % (
-            self._normalDate.monthName(),
-            self._normalDate.day(),
-            self._normalDate.year()
-         )
+    def __add__(self, other):
+        return Date(self._normalDate + other)
 
+    def __sub__(self, other):
+        return Date(self._normalDate - other)
 
-   def __add__(self, other):
-      return Date(self._normalDate + other)
+    def __cmp__(self, other):
+        return cmp(self._normalDate, other._normalDate)
 
+    def _parseString(self, s):
+        s = s.upper()
 
-   def __sub__(self, other):
-      return Date(self._normalDate - other)
+        for parseMethod in [self._format1, self._format2]:
+            try:
+                year, month, day = parseMethod(s)
+                break
+            except AttributeError:
+                continue
 
+        year = int(year)
+        if year > 0 and year < 100:
+            year += 2000
 
-   def __cmp__(self, other):
-      return cmp(self._normalDate, other._normalDate)
+        try:
+            self._normalDate = NormalDate(year * 10000 + int(month) * 100 + int(day))
 
+        except NormalDateException:
+            self._normalDate = None
 
-   def _parseString(self, s):
-      s = s.upper()
+    def _format1(self, s):
+        match = format1.match(s)
+        d = match.groupdict()
+        return d["year"], monthDict[d["month"][:3]], d["day"]
 
-      for parseMethod in [ self._format1, self._format2 ]:
-         try:
-            year, month, day = parseMethod(s)
-            break
-         except AttributeError:
-            continue
-
-      year = int(year)
-      if year > 0 and year < 100:
-         year += 2000
-
-      try:
-         self._normalDate = NormalDate(
-            year * 10000
-            +
-            int(month) * 100
-            +
-            int(day)
-         )
-
-      except NormalDateException:
-         self._normalDate = None
-
-
-   def _format1(self, s):
-      match = format1.match(s)
-      d = match.groupdict()
-      return d["year"], monthDict[d["month"][:3]], d["day"]
-
-
-   def _format2(self, s):
-      match = format2.match(s)
-      d = match.groupdict()
-      return d["year"], monthDict[d["month"][:3]], d["day"]
-
-
+    def _format2(self, s):
+        match = format2.match(s)
+        d = match.groupdict()
+        return d["year"], monthDict[d["month"][:3]], d["day"]
 
 
 # from http://starship.python.net/crew/jbauer/normaldate
@@ -103,20 +90,43 @@ class Date:
 # License: Same as Python 2.1 or later
 
 import time
+
 # from types import IntType, ListType, StringType, TupleType
 
 _bigBangScalar = -4345732  # based on (-9999, 1, 1) BC/BCE minimum
 _bigCrunchScalar = 2958463  # based on (9999,12,31) AD/CE maximum
-_daysInMonthNormal = [31,28,31,30,31,30,31,31,30,31,30,31]
-_daysInMonthLeapYear = [31,29,31,30,31,30,31,31,30,31,30,31]
-_dayOfWeekName = ['Monday', 'Tuesday', 'Wednesday', 'Thursday',
-                  'Friday', 'Saturday', 'Sunday']
-_monthName = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July','August','September','October','November','December']
+_daysInMonthNormal = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+_daysInMonthLeapYear = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+_dayOfWeekName = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+]
+_monthName = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+]
+
 
 class NormalDateException(Exception):
     """Exception class for NormalDate"""
+
     pass
+
 
 class NormalDate:
     """
@@ -168,6 +178,7 @@ class NormalDate:
         Roedy Green
         Stephen Walton
     """
+
     def __init__(self, normalDate=None):
         """
         Accept 1 of 4 values to initialize a NormalDate:
@@ -184,15 +195,13 @@ class NormalDate:
     def add(self, days):
         """add days to date; use negative integers to subtract"""
         if not type(days) is int:
-            raise NormalDateException( \
-                'add method parameter must be integer type')
+            raise NormalDateException("add method parameter must be integer type")
         self.normalize(self.scalar() + days)
 
     def __add__(self, days):
         """add integer to normalDate and return a new, calculated value"""
         if not type(days) is int:
-            raise NormalDateException( \
-                '__add__ parameter must be integer type')
+            raise NormalDateException("__add__ parameter must be integer type")
         cloned = self.clone()
         cloned.add(days)
         return cloned
@@ -204,7 +213,7 @@ class NormalDate:
     def __cmp__(self, target):
         if target is None:
             return 1
-        elif not hasattr(target, 'normalDate'):
+        elif not hasattr(target, "normalDate"):
             return 1
         else:
             return cmp(self.normalDate, target.normalDate)
@@ -264,8 +273,7 @@ class NormalDate:
 
     def endOfMonth(self):
         """returns (cloned) last day of month"""
-        return self.__class__(self.__repr__()[-8:-2] + \
-                              str(self.lastDayOfMonth()))
+        return self.__class__(self.__repr__()[-8:-2] + str(self.lastDayOfMonth()))
 
     def firstDayOfMonth(self):
         """returns (cloned) first day of month"""
@@ -311,11 +319,11 @@ class NormalDate:
         if len(dateStr) < 8:
             return 0
         elif len(dateStr) == 9:
-            if (dateStr[0] != '-' and dateStr[0] != '+'):
+            if dateStr[0] != "-" and dateStr[0] != "+":
                 return 0
         year = int(dateStr[:-4])
         if year < -9999 or year > 9999 or year == 0:
-            return 0    # note: zero (0) is not a valid year
+            return 0  # note: zero (0) is not a valid year
         month = int(dateStr[-4:-2])
         if month < 1 or month > 12:
             return 0
@@ -356,14 +364,13 @@ class NormalDate:
     def normalize(self, scalar):
         """convert scalar to normalDate"""
         if scalar < _bigBangScalar:
-            msg = "normalize(%d): scalar below minimum" % \
-                  _bigBangScalar
+            msg = "normalize(%d): scalar below minimum" % _bigBangScalar
             raise NormalDateException(msg)
         if scalar > _bigCrunchScalar:
-            msg = "normalize(%d): scalar exceeds maximum" % \
-                  _bigCrunchScalar
+            msg = "normalize(%d): scalar exceeds maximum" % _bigCrunchScalar
             raise NormalDateException(msg)
         from math import floor
+
         if scalar >= -115860:
             year = 1600 + int(floor((scalar + 109573) / 365.2425))
         elif scalar >= -693597:
@@ -381,13 +388,14 @@ class NormalDate:
             year = year + 1
             days = scalar - firstDayOfYear(year) + 1
         # add 10 days if between Oct 15, 1582 and Dec 31, 1582
-        if (scalar >= -115860 and scalar <= -115783):
+        if scalar >= -115860 and scalar <= -115783:
             days = days + 10
         if isLeapYear(year):
             daysByMonth = _daysInMonthLeapYear
         else:
             daysByMonth = _daysInMonthNormal
-        dc = 0; month = 12
+        dc = 0
+        month = 12
         for m in range(len(daysByMonth)):
             dc = dc + daysByMonth[m]
             if dc >= days:
@@ -400,7 +408,7 @@ class NormalDate:
         day = days - priorMonthDays
         self.setNormalDate((year, month, day))
 
-    def __radd__(self,days):
+    def __radd__(self, days):
         """for completeness"""
         return self.__add__(days)
 
@@ -459,7 +467,7 @@ class NormalDate:
     def setMonth(self, month):
         """set the month [1-12]"""
         if month < 1 or month > 12:
-            raise NormalDateException('month is outside range 1 to 12')
+            raise NormalDateException("month is outside range 1 to 12")
         (y, m, d) = self.toTuple()
         self.setNormalDate((y, month, d))
 
@@ -486,11 +494,11 @@ class NormalDate:
 
     def setYear(self, year):
         if year == 0:
-            raise NormalDateException('cannot set year to zero')
+            raise NormalDateException("cannot set year to zero")
         elif year < -9999:
-            raise NormalDateException('year cannot be less than -9999')
+            raise NormalDateException("year cannot be less than -9999")
         elif year > 9999:
-            raise NormalDateException('year cannot be greater than 9999')
+            raise NormalDateException("year cannot be greater than 9999")
         (y, m, d) = self.toTuple()
         self.setNormalDate((year, m, d))
 
@@ -517,22 +525,27 @@ class NormalDate:
         """return year in yyyy format, negative values indicate B.C."""
         return int(repr(self.normalDate)[:-4])
 
+
 #################  Utility functions  #################
+
 
 def bigBang():
     """return lower boundary as a NormalDate"""
     return NormalDate((-9999, 1, 1))
 
+
 def bigCrunch():
     """return upper boundary as a NormalDate"""
     return NormalDate((9999, 12, 31))
+
 
 def dayOfWeek(y, m, d):
     """return integer representing day of week, Mon=0, Tue=1, etc."""
     if m == 1 or m == 2:
         m = m + 12
         y = y - 1
-    return (d + 2*m + 3*(m+1)/5 + y + y/4 - y/100 + y/400) % 7
+    return (d + 2 * m + 3 * (m + 1) / 5 + y + y / 4 - y / 100 + y / 400) % 7
+
 
 def firstDayOfYear(year):
     """number of days to the first of the year, relative to Jan 1, 1900"""
@@ -540,18 +553,22 @@ def firstDayOfYear(year):
         msg = "firstDayOfYear() expected integer, got %s" % type(year)
         raise NormalDateException(msg)
     if year == 0:
-        raise NormalDateException('first day of year cannot be zero (0)')
+        raise NormalDateException("first day of year cannot be zero (0)")
     elif year < 0:  # BCE calculation
         firstDay = (year * 365) + int((year - 1) / 4) - 693596
-    else:           # CE calculation
+    else:  # CE calculation
         leapAdjust = int((year + 3) / 4)
         if year > 1600:
-            leapAdjust = leapAdjust - int((year + 99 - 1600) / 100) + \
-                         int((year + 399 - 1600) / 400)
+            leapAdjust = (
+                leapAdjust
+                - int((year + 99 - 1600) / 100)
+                + int((year + 399 - 1600) / 400)
+            )
         firstDay = year * 365 + leapAdjust - 693963
         if year > 1582:
             firstDay = firstDay - 10
     return firstDay
+
 
 def isLeapYear(year):
     """determine if specified year is leap year, returns Python boolean"""
@@ -569,21 +586,27 @@ def isLeapYear(year):
     else:
         return 1
 
-ND=NormalDate
-Epoch=bigBang()
+
+ND = NormalDate
+Epoch = bigBang()
 _NormalDateType = type(Epoch)
 _TimeType = type(time.localtime(time.time()))
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     today = ND()
     print("NormalDate test:")
-    print("  Today (%s) is: %s %s" % \
-          (today, today.dayOfWeekAbbrev(), today.localeFormat()))
+    print(
+        "  Today (%s) is: %s %s"
+        % (today, today.dayOfWeekAbbrev(), today.localeFormat())
+    )
     yesterday = today - 1
-    print("  Yesterday was: %s %s" % \
-          (yesterday.dayOfWeekAbbrev(), yesterday.localeFormat()))
+    print(
+        "  Yesterday was: %s %s"
+        % (yesterday.dayOfWeekAbbrev(), yesterday.localeFormat())
+    )
     tomorrow = today + 1
-    print("  Tomorrow will be: %s %s" % \
-          (tomorrow.dayOfWeekAbbrev(), tomorrow.localeFormat()))
-    print("  Days between tomorrow and yesterday: %d" % \
-          (tomorrow - yesterday))
+    print(
+        "  Tomorrow will be: %s %s"
+        % (tomorrow.dayOfWeekAbbrev(), tomorrow.localeFormat())
+    )
+    print("  Days between tomorrow and yesterday: %d" % (tomorrow - yesterday))

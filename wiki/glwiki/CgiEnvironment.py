@@ -3,7 +3,6 @@ class CgiEnvironment:
     def __init__(self, dict):
         self.dict = dict
 
-
     def get(self, name):
         result = self.dict.get(name, "")
 

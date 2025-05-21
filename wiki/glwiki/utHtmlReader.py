@@ -3,11 +3,11 @@ from io import StringIO
 
 from HtmlReader import HtmlReader
 
+
 class ut_HtmlReader:
 
-   def testReproducingHtml(self):
-      input = \
-"""<HTML><HEAD><TITLE>ignored title</TITLE></HEAD>
+    def testReproducingHtml(self):
+        input = """<HTML><HEAD><TITLE>ignored title</TITLE></HEAD>
 <BODY>
    Some body text begins here&#150;with an ampersand: &amp;.
    <P>
@@ -16,8 +16,7 @@ class ut_HtmlReader:
 </HTML>
 """
 
-      expect = \
-"""<HTML><HEAD>
+        expect = """<HTML><HEAD>
   <TITLE>ignored title</TITLE>
 </HEAD>
 <BODY>
@@ -28,15 +27,13 @@ class ut_HtmlReader:
 </HTML>
 """
 
-      reader = HtmlReader(StringIO(input))
-      internalHtml = reader.extract()
+        reader = HtmlReader(StringIO(input))
+        internalHtml = reader.extract()
 
-      TEST_EQ(expect, str(internalHtml))
+        TEST_EQ(expect, str(internalHtml))
 
-
-   def testModifyingHtml(self):
-      input = \
-"""<HTML><HEAD><TITLE>ignored title</TITLE></HEAD>
+    def testModifyingHtml(self):
+        input = """<HTML><HEAD><TITLE>ignored title</TITLE></HEAD>
 <BODY>
    Some body text begins here&#150;with an ampersand: &amp;.
    <P>
@@ -45,8 +42,7 @@ class ut_HtmlReader:
 </HTML>
 """
 
-      expect = \
-"""<HTML><HEAD>
+        expect = """<HTML><HEAD>
   <TITLE>ignored title</TITLE>
 </HEAD>
 <BODY>
@@ -58,8 +54,8 @@ class ut_HtmlReader:
 </HTML>
 """
 
-      reader = HtmlReader(StringIO(input))
-      internalHtml = reader.extract()
-      internalHtml.add("   An extra line.\n")
+        reader = HtmlReader(StringIO(input))
+        internalHtml = reader.extract()
+        internalHtml.add("   An extra line.\n")
 
-      TEST_EQ(expect, str(internalHtml))
+        TEST_EQ(expect, str(internalHtml))

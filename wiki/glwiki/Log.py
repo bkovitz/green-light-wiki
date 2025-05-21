@@ -8,8 +8,7 @@ def log(environ, commandName, uri, userName):
 
     logFile.write(
         "%s  %-15s %-6s %s %s\n"
-        %
-        (
+        % (
             time.strftime("%a %d-%b-%Y %H:%M:%S"),
             _userNameWithIP(userName, environ.get("REMOTE_ADDR", "-")),
             commandName,
@@ -22,14 +21,14 @@ def log(environ, commandName, uri, userName):
 
 
 def _dashIfBlank(s):
-   if len(s) == 0:
-      return "-"
-   else:
-      return s
+    if len(s) == 0:
+        return "-"
+    else:
+        return s
 
 
 def _userNameWithIP(userName, ip):
-   if userName and userName != "(unknown)" and userName != ip:
-      return "%s(%s)" % (userName, ip)
-   else:
-      return ip
+    if userName and userName != "(unknown)" and userName != ip:
+        return "%s(%s)" % (userName, ip)
+    else:
+        return ip

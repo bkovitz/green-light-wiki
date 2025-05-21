@@ -2,24 +2,24 @@ from teest import *
 
 from RequestedPage import RequestedPage
 
+
 class InstanceClass(RequestedPage):
 
-   def renderHtml(self):
-      self._cgiLeader = "blah\n"
-      return "some html\n"
+    def renderHtml(self):
+        self._cgiLeader = "blah\n"
+        return "some html\n"
 
-   def cgiLeader(self):
-      return self._cgiLeader
+    def cgiLeader(self):
+        return self._cgiLeader
 
 
 class ut_RequestedPage:
 
-   def testRenderCgi(self):
-      page = InstanceClass()
+    def testRenderCgi(self):
+        page = InstanceClass()
 
-      expect = \
-"""blah
+        expect = """blah
 
 some html
 """
-      TEST_EQ(expect, page.renderCgi())
+        TEST_EQ(expect, page.renderCgi())

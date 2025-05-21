@@ -1,2 +1,2 @@
 def sample():
-   return "SAMPLE"
+    return "SAMPLE"
