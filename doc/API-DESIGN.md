@@ -1,6 +1,5 @@
 md -> react (parser) -> react (jsx)
 
-
 Use cases:
 
 1. User views a page.
@@ -19,3 +18,9 @@ Use cases:
 3. User views a diff.
 
    GET /PageName?q=diff
+
+Database?
+
+- Page table + Version table? (Staying atomic)
+- Each row is one version of a page
+
