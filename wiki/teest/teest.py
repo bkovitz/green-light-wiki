@@ -1,11 +1,20 @@
 import sys, os, os.path, re
-import imp
+import importlib.util
 from time import time
 from traceback import extract_tb, format_list
+
+from Helpers import cmp, apply
 
 showTimings = None
 timingsLimit = None
 
+# # We need this because Python 3 doesn't have cmp
+# def cmp(a, b):
+#     return (a > b) - (a < b)
+
+# # We need this because Python 3 doesn't have apply
+# def apply(func, args, kwargs=None):
+#     return func(*args) if kwargs is None else func(*args, **kwargs)
 
 class TestFailed(Exception):
    def __init__(self, message = ""):
@@ -48,19 +57,19 @@ class TestRunner:
       self.numFailedTests = 0
       self._timings = []
 
-      print "-" * 50 + " UNIT TESTS"
+      print("-" * 50 + " UNIT TESTS")
       for fileName in fileNames:
          self._runAllTestsInOneFile(fileName)
 
-      print "\n"
+      print("\n")
       if self.numFailedTests == 0:
-         print "All tests PASSED %s." % self._numTestsRun()
+         print("All tests PASSED %s." % self._numTestsRun())
       else:
-         print "%d %s FAILED %s." % (
+         print("%d %s FAILED %s." % (
             self.numFailedTests,
             self._testWord(self.numFailedTests),
             self._numTestsRun()
-         )
+         ))
 
 
    def _timingsString(self):
@@ -87,8 +96,14 @@ class TestRunner:
 
    def _runAllTestsInOneFile(self, fileName):
       moduleName = self._stripSuffix(fileName)
-      file, path, description = imp.find_module(moduleName)
-      module = imp.load_source(moduleName, path, file)
+      spec = importlib.util.spec_from_file_location(moduleName, moduleName + ".py")
+      if spec is None:
+         raise ImportError(f"Cannot find module {moduleName}")
+      module = importlib.util.module_from_spec(spec)
+      spec.loader.exec_module(module)
+
+#spec = importlib.util.spec_from_file_location("utVersionedFile2", file_path)
+#module = importlib.util.module_from_spec(spec)
 
       for testClass in self._allTestClasses(module):
          for testFunc in self._allTestFuncs(testClass):
@@ -108,14 +123,14 @@ class TestRunner:
 
       try:
          testFunc(obj)
-      except Exception, exc:
-         print (
+      except Exception as exc:
+         print(
             "\n\nFAILED: %s.%s"
             %
             (testClass.__name__, testFunc.__name__)
          )
          self._printStackTrace(sys.exc_info()[2])
-         print "    " + self._exceptionMsg(exc)
+         print("    " + self._exceptionMsg(exc))
          self.numFailedTests += 1
 
       if "tearDown" in dir(obj):
@@ -239,7 +254,7 @@ def allUts():
       filename for filename in os.listdir(".")
          if utPattern.match(filename)
    ]
-   
+
 
 if __name__ == "__main__":
    while switchInFirstArgv():
@@ -249,7 +264,7 @@ if __name__ == "__main__":
       runner = TestRunner(sys.argv[1:])
    else:
       runner = TestRunner(allUts())
-      
+
    if showTimings:
-      print showTimings(runner)
+      print(showTimings(runner))
    sys.exit(runner.numFailedTests != 0)

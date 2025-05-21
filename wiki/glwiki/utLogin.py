@@ -1,7 +1,7 @@
 from teest import *
 from utMisc import clearSessionDict, FileFromList, resetConfig
 
-from StringIO import StringIO
+from io import StringIO
 
 from Login import Login
 from Environments import getEnvironment

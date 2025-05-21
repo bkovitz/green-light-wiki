@@ -33,41 +33,40 @@ class MostRecentChangeToAPage:
       del d[_indexKey(self.index)]
       del d[self.pageName]
 
-      
+
 def logChange(command):  #TODO: delete this
    logChange2(command.wikiName, command.userName, command.pageName)
 
 
 def logChange2(wikiName, userName, pageName):
-   d = shelve.open(_shelfName(wikiName))
+   with shelve.open(_shelfName(wikiName)) as d:
 
-   if d.has_key(pageName):
-      change = d[pageName]
-      change.delete(d)
-      change.userName = userName
-      change.date = int(time.time())
-      change.write(d)
-   else:
-      change = MostRecentChangeToAPage(pageName, userName)
-      change.write(d)
+    #  if d.has_key(pageName):
+    if pageName in d:
+        change = d[pageName]
+        change.delete(d)
+        change.userName = userName
+        change.date = int(time.time())
+        change.write(d)
+    else:
+        change = MostRecentChangeToAPage(pageName, userName)
+        change.write(d)
 
-   d.close()
+    #    d.close()
 
 
 def retrieveChanges(wikiName, numRecords):
    """
       MostRecentChangeToAPage's are returned in reverse chronological order
    """
-   d = shelve.open(_shelfName(wikiName))
+   with shelve.open(_shelfName(wikiName)) as d:
 
-   result = []
-   maxKey = _maxKey(d)
-   while len(result) < numRecords and maxKey >= 1:
-      if d.has_key(_indexKey(maxKey)):
-         result.append(d[_indexKey(maxKey)])
-      maxKey -= 1
-
-   d.close()
+       result = []
+       maxKey = _maxKey(d)
+       while len(result) < numRecords and maxKey >= 1:
+           if _indexKey(maxKey) in d:
+               result.append(d[_indexKey(maxKey)])
+           maxKey -= 1
 
    return result
 
@@ -83,7 +82,7 @@ def renderHtml(wikiName):
 def _renderChangesInHtml(changes, wikiName):
    result = HtmlHolder()
    prevYear = prevMonth = prevDay = None
-   
+
    for change in changes:
       timeTuple = time.localtime(change.date)
       year, month, day, hours, minutes, ignored, dow = timeTuple[:7]
@@ -144,7 +143,7 @@ def _renderChanges(changes):
          change.pageName,
          change.userName
       )
-   
+
    return result
 
 

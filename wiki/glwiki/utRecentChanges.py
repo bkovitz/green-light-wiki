@@ -1,6 +1,6 @@
 from teest import *
 import utMisc, re, shelve, time
-from StringIO import StringIO
+from io import StringIO
 from Html import HtmlTable, HtmlRow, HtmlDatum, HtmlAnchor, HtmlHolder
 
 from RecentChanges import logChange, retrieveChanges, MostRecentChangeToAPage, \
@@ -45,7 +45,7 @@ class ut_RecentChanges:
       TEST_EQ("MrUser", recentChanges[0].userName)
 
       # log a change of a different page
-   
+
       command = WikiCommand(
          "SAVE",
          "TESTDATA",
@@ -87,7 +87,7 @@ class ut_RecentChanges:
 
       TEST_EQ("OtherPage", recentChanges[1].pageName)
       TEST_EQ("GeorgeGibbons", recentChanges[1].userName)
-   
+
 
    def testRender(self):
       items = [
@@ -139,10 +139,10 @@ class ut_RecentChanges:
 
       TEST_EQ(str(expect), str(_renderChangesInHtml(items, "TESTDATA")))
 
-      
+
    def _removeShelf(self):
       utMisc.forceRemove(self.filename)
-      
+
 
 def _t(halfTup):
    return _mkgmtime(halfTup + (0, 0, -1))

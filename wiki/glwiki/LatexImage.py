@@ -1,5 +1,5 @@
 import os, re, shelve, cgi
-from fcntl import lockf, LOCK_EX, LOCK_UN
+# from fcntl import lockf, LOCK_EX, LOCK_UN
 
 from Config import config
 from ShellCommand import ShellCommand
@@ -114,7 +114,7 @@ class LatexImage:
             return 0, command
 
       return 1, None
-      
+
 
    def _renderLatex(self, imageFilename):
       f = file("expr.tex", "w")
@@ -170,18 +170,20 @@ class LatexDatabase:
       if name != "_lockFile":
          raise AttributeError(name)
       else:
-         self._lockFile = file(lockFilename, "a")
+         self._lockFile = open(lockFilename, "a")
          return self._lockFile
 
 
    def lock(self):
-      lockf(self._lockFile, LOCK_EX)
+      # lockf(self._lockFile, LOCK_EX)
+      pass
 
 
    def unlock(self):
-      lockf(self._lockFile, LOCK_UN)
+      # lockf(self._lockFile, LOCK_UN)
+      pass
 
-      
+
    def getImageFilename(self, s):
       """ returns (needToGenerate, filename) where needToGenerate is
       a true/false flag telling whether the image file needs to be

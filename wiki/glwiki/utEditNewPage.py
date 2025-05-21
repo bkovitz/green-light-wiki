@@ -1,6 +1,6 @@
 from teest import *
 from utMisc import FakeEnvironment
-from StringIO import StringIO
+from io import StringIO
 
 from EditNewPage import EditNewPage
 from WikiRepository import WikiRepository

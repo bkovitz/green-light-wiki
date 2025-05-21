@@ -1,5 +1,5 @@
 from teest import *
-from StringIO import StringIO
+from io import StringIO
 
 from HtmlReader import HtmlReader
 
@@ -33,7 +33,7 @@ class ut_HtmlReader:
 
       TEST_EQ(expect, str(internalHtml))
 
-   
+
    def testModifyingHtml(self):
       input = \
 """<HTML><HEAD><TITLE>ignored title</TITLE></HEAD>

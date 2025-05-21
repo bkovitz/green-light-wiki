@@ -9,7 +9,7 @@ from Html import Html, HtmlTable, HtmlRow, HtmlDatum, HtmlLink, \
    HtmlAttribute, OneRowTable, HtmlForm, HtmlInputSubmit, HtmlInputHidden, \
    ButtonLink, HtmlMeta, HtmlAnchor
 from VersionedFile2 import VersionedFile2, BadVersionException
-from StringIO import StringIO
+from io import StringIO
 from Chunks import BadVersionNumberChunk, LinkToExistingPageChunk, \
    VersionInfoChunk, TopChunk, ParagraphChunk, ChangedParagraphChunk, \
    OrderedListItemChunk
@@ -26,7 +26,7 @@ class ut_DisplayPage:
       chunk = page.renderHtml()
       # no crash means pass
 
-      
+
    def testContentParas(self):
       self._createFileToDisplay()
 

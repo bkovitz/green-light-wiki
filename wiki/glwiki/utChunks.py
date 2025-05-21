@@ -3,7 +3,7 @@ from utMisc import FakeEnvironment
 
 from Chunks import WikiPageBodyChunk
 
-from StringIO import StringIO
+from io import StringIO
 from DisplayPage import DisplayPage
 from WikiRepository import WikiRepository
 from BodyExtractor import BodyExtractor

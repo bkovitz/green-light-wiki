@@ -1,5 +1,5 @@
 from teest import *
-from StringIO import StringIO
+from io import StringIO
 
 from PathMatch import PathMatch, _convertToRegexp
 from utMisc import NonexistentFile, FileFromList
@@ -34,7 +34,7 @@ class ut_PathMatch:
       paths = FileFromList([
          "STATIC *.html\n"
       ])
-      
+
       matcher = PathMatch(paths)
 
       wikiName, fileType, pageName = matcher.pathInfo("/somefile")
@@ -57,7 +57,7 @@ class ut_PathMatch:
       paths = FileFromList([
          "STATIC statics/*.html\n"
       ])
-      
+
       matcher = PathMatch(paths)
 
       wikiName, fileType, pageName = matcher.pathInfo("/somefile")
@@ -240,19 +240,19 @@ class ut_PathMatch:
       TEST_EQ("STATIC", fileType)
       TEST_EQ("statics/dir1/dir2/index.html", pageName)
       TEST_EQ("", wikiName)
-      
+
       wikiName, fileType, pageName = \
          matcher.pathInfo("statics/dir1/dir2/")
       TEST_EQ("STATIC", fileType)
       TEST_EQ("statics/dir1/dir2/index.html", pageName)
       TEST_EQ("", wikiName)
-      
+
       wikiName, fileType, pageName = \
          matcher.pathInfo("statics/dir1/dir2")
       TEST_EQ("STATIC", fileType)
       TEST_EQ("statics/dir1/dir2/index.html", pageName)
       TEST_EQ("", wikiName)
-      
+
       '''
       wikiName, fileType, pageName = \
          matcher.pathInfo("statics/dir1/dir2/file.bad")

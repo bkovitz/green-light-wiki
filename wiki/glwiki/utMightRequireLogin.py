@@ -1,7 +1,7 @@
 from teest import *
 from utMisc import FakeEnvironment, forceRemove, resetConfig, clearSessionDict
 
-from StringIO import StringIO
+from io import StringIO
 
 from MightRequireLogin import MightRequireLogin
 import SessionDatabase

@@ -7,7 +7,7 @@ from EditPage import EditPage
 from Html import Html, HtmlMeta, HtmlForm, HtmlTextArea, HtmlInputHidden, \
    HtmlInputSubmit
 from VersionedFile2 import VersionedFile2
-from StringIO import StringIO
+from io import StringIO
 from WikiRepository import WikiRepository
 from Config import config
 import SessionDatabase
@@ -34,8 +34,8 @@ class ut_EditPage:
 
       page.renderHtml()
       # no crash means pass
-      
-      
+
+
    def testNoRobots(self):
       self._createFileToDisplay()
 
@@ -57,7 +57,7 @@ class ut_EditPage:
          "PageTitle",
          "George Gibbons"
       ))
-      
+
       expect = \
 """<DIV ID="wiki-edit">
   <FORM ACTION="http://greenlightwiki.com/PageTitle" METHOD=POST><TEXTAREA ROWS=24 COLS=80 WRAP=VIRTUAL NAME="text">First line
@@ -93,7 +93,7 @@ Second line
       forceRemove("TESTWIKI/PageTitle")
 
       originalText = "First line\nSecond line\n"
-      wikiFile = VersionedFile2(file("TESTWIKI/PageTitle", "w+"))
+      wikiFile = VersionedFile2(open("TESTWIKI/PageTitle", "w+"))
       wikiFile.writeNewVersion(
          "Dr. John Mittens",
          StringIO(originalText)

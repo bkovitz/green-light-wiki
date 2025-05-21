@@ -1,6 +1,6 @@
 from teest import *
 from utMisc import FileFromString
-from StringIO import StringIO
+from io import StringIO
 
 from DynamicPage import DynamicPage
 

@@ -1,5 +1,5 @@
 #import cgi, urllib
-#from StringIO import StringIO
+#from io import StringIO
 from io import StringIO
 #from Cookie import SimpleCookie
 from http.cookies import SimpleCookie
@@ -87,7 +87,7 @@ class Environment:
 
 
 class ApacheEnvironment(Environment):
-   
+
    def __init__(self, commandLine, environ, pathsFile, stdin):
       formDict = _getDictFromStdin(stdin)
       if "text" in formDict:

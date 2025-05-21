@@ -1,5 +1,9 @@
 import re
-from types import StringType
+
+from numpy import isin
+# from types import StringType
+
+from Helpers import cmp, apply
 
 format1 = re.compile("(?P<month>[A-Z]+)\s*(?P<day>\d+),\s*(?P<year>\d+)")
 format2 = re.compile("(?P<day>\d+)-(?P<month>[A-Z]+)-(?P<year>\d+)")
@@ -22,7 +26,7 @@ monthDict = {
 class Date:
 
    def __init__(self, date):
-      if type(date) == StringType:
+      if type(date) == str:
          self._parseString(date)
       else:
          self._normalDate = date
@@ -88,8 +92,8 @@ class Date:
       match = format2.match(s)
       d = match.groupdict()
       return d["year"], monthDict[d["month"][:3]], d["day"]
-      
-      
+
+
 
 
 # from http://starship.python.net/crew/jbauer/normaldate
@@ -99,7 +103,7 @@ class Date:
 # License: Same as Python 2.1 or later
 
 import time
-from types import IntType, ListType, StringType, TupleType
+# from types import IntType, ListType, StringType, TupleType
 
 _bigBangScalar = -4345732  # based on (-9999, 1, 1) BC/BCE minimum
 _bigCrunchScalar = 2958463  # based on (9999,12,31) AD/CE maximum
@@ -179,14 +183,14 @@ class NormalDate:
 
     def add(self, days):
         """add days to date; use negative integers to subtract"""
-        if not type(days) is IntType:
+        if not type(days) is int:
             raise NormalDateException( \
                 'add method parameter must be integer type')
         self.normalize(self.scalar() + days)
 
     def __add__(self, days):
         """add integer to normalDate and return a new, calculated value"""
-        if not type(days) is IntType:
+        if not type(days) is int:
             raise NormalDateException( \
                 '__add__ parameter must be integer type')
         cloned = self.clone()
@@ -228,7 +232,7 @@ class NormalDate:
         else:
             daysByMonth = _daysInMonthNormal
         priorMonthDays = 0
-        for m in xrange(self.month() - 1):
+        for m in range(self.month() - 1):
             priorMonthDays = priorMonthDays + daysByMonth[m]
         return self.day() + priorMonthDays
 
@@ -296,7 +300,7 @@ class NormalDate:
 
     def _isValidNormalDate(self, normalDate):
         """checks for date validity in [-]yyyymmdd format"""
-        if type(normalDate) is not IntType:
+        if type(normalDate) is not int:
             return 0
         if len(repr(normalDate)) > 9:
             return 0
@@ -384,27 +388,28 @@ class NormalDate:
         else:
             daysByMonth = _daysInMonthNormal
         dc = 0; month = 12
-        for m in xrange(len(daysByMonth)):
+        for m in range(len(daysByMonth)):
             dc = dc + daysByMonth[m]
             if dc >= days:
                 month = m + 1
                 break
         # add up the days in prior months
         priorMonthDays = 0
-        for m in xrange(month - 1):
+        for m in range(month - 1):
             priorMonthDays = priorMonthDays + daysByMonth[m]
         day = days - priorMonthDays
         self.setNormalDate((year, month, day))
 
-	def __radd__(self,days):
-		"""for completeness"""
-		return self.__add__(days)
+    def __radd__(self,days):
+        """for completeness"""
+        return self.__add__(days)
 
     def range(self, days):
         """Return a range of normalDates as a list.  Parameter
-        may be an int or normalDate."""
-        if type(days) is not IntType:
-            days = days - self  # if not int, assume arg is normalDate type
+        may be an IntType or normalDate."""
+        # if type(days) is not IntType:
+        if isinstance(days, int):
+            days = days - self  # if not IntType/int, assume arg is normalDate type
         r = []
         for i in range(days):
             r.append(self + i)
@@ -413,28 +418,29 @@ class NormalDate:
     def __repr__(self):
         """print format: [-]yyyymmdd"""
         # Note: When disassembling a NormalDate string, be sure to
-        # count from the right, i.e. epochMonth = int(`Epoch`[-4:-2]),
+        # count from the right, i.e. epochMonth = IntType(`Epoch`[-4:-2]),
         # or the slice won't work for dates B.C.
         if self.normalDate < 0:
             return "%09d" % self.normalDate
         else:
             return "%08d" % self.normalDate
 
-	def __rsub__(self, v):
-		if type(v) is IntType:
-			return NormalDate(v) - self
-		else:
-			return v.scalar() - self.scalar()
+    def __rsub__(self, v):
+        # if type(v) is IntType:
+        if isinstance(v, int):
+            return NormalDate(v) - self
+        else:
+            return v.scalar() - self.scalar()
 
     def scalar(self):
         """days since baseline date: Jan 1, 1900"""
         (year, month, day) = self.toTuple()
         days = firstDayOfYear(year) + day - 1
         if self.isLeapYear():
-            for m in xrange(month - 1):
+            for m in range(month - 1):
                 days = days + _daysInMonthLeapYear[m]
         else:
-            for m in xrange(month - 1):
+            for m in range(month - 1):
                 days = days + _daysInMonthNormal[m]
         if year == 1582:
             if month > 10 or (month == 10 and day > 4):
@@ -462,19 +468,20 @@ class NormalDate:
         accepts date as scalar string/integer (yyyymmdd) or tuple
         (year, month, day, ...)"""
         _type = type(normalDate)
-        if _type is IntType:
+        if _type is int:
             self.normalDate = normalDate
-        elif _type is StringType:
+        elif _type is str:
             try:
                 self.normalDate = int(normalDate)
             except ValueError:
                 raise NormalDateException("Bad integer: '%s'" % normalDate)
-        elif _type in (TupleType, ListType) or _type is _TimeType:
+        # elif _type in (TupleType, ListType) or _type is _TimeType:
+        elif _type in (tuple, list) or _type is _TimeType:
             self.normalDate = int("%04d%02d%02d" % normalDate[:3])
         elif _type is _NormalDateType:
             self.normalDate = normalDate.normalDate
         if not self._isValidNormalDate(self.normalDate):
-            msg = "unable to setNormalDate(%s)" % `normalDate`
+            msg = "unable to setNormalDate(%s)" % repr(normalDate)
             raise NormalDateException(msg)
 
     def setYear(self, year):
@@ -490,7 +497,8 @@ class NormalDate:
     __setstate__ = setNormalDate
 
     def __sub__(self, v):
-        if type(v) is IntType:
+        # if type(v) is IntType:
+        if isinstance(v, int):
             return self.__add__(-v)
         return self.scalar() - v.scalar()
 
@@ -528,7 +536,7 @@ def dayOfWeek(y, m, d):
 
 def firstDayOfYear(year):
     """number of days to the first of the year, relative to Jan 1, 1900"""
-    if type(year) is not IntType:
+    if type(year) is not int:
         msg = "firstDayOfYear() expected integer, got %s" % type(year)
         raise NormalDateException(msg)
     if year == 0:
@@ -568,16 +576,14 @@ _TimeType = type(time.localtime(time.time()))
 
 if __name__ == '__main__':
     today = ND()
-    print "NormalDate test:"
-    print "  Today (%s) is: %s %s" % \
-          (today, today.dayOfWeekAbbrev(), today.localeFormat())
+    print("NormalDate test:")
+    print("  Today (%s) is: %s %s" % \
+          (today, today.dayOfWeekAbbrev(), today.localeFormat()))
     yesterday = today - 1
-    print "  Yesterday was: %s %s" % \
-          (yesterday.dayOfWeekAbbrev(), yesterday.localeFormat())
+    print("  Yesterday was: %s %s" % \
+          (yesterday.dayOfWeekAbbrev(), yesterday.localeFormat()))
     tomorrow = today + 1
-    print "  Tomorrow will be: %s %s" % \
-          (tomorrow.dayOfWeekAbbrev(), tomorrow.localeFormat())
-    print "  Days between tomorrow and yesterday: %d" % \
-          (tomorrow - yesterday)
-
-
+    print("  Tomorrow will be: %s %s" % \
+          (tomorrow.dayOfWeekAbbrev(), tomorrow.localeFormat()))
+    print("  Days between tomorrow and yesterday: %d" % \
+          (tomorrow - yesterday))

@@ -5,7 +5,7 @@ from WikiCommand import WikiCommand, makeWikiCommandFromApacheEnvironment, \
                         getPageNameFromApacheEnvironment
 from WikiCommand import _extractPageName, _extractWikiName
 
-from StringIO import StringIO
+from io import StringIO
 
 class ut_WikiCommand:
 
@@ -30,7 +30,7 @@ class ut_WikiCommand:
 
       TEST_EQ("YawningVoid", pageName)
 
-      
+
    def testDisplay(self):
       environ = {
          "REDIRECT_URL": "/heuristic/YawningVoid",
@@ -90,8 +90,8 @@ class ut_WikiCommand:
       TEST_EQ("forcedWiki", command.wikiName)
       TEST_EQ("YawningVoid", command.pageName)
       TEST_EQ("DISPLAY", command.command)
-      
-      
+
+
    def testForceWikiNameWithDefaultPage(self):
       environ = {
          "REDIRECT_URL": "/big-site/wiki/",
@@ -105,7 +105,7 @@ class ut_WikiCommand:
       TEST_EQ("forcedWiki", command.wikiName)
       TEST_EQ("", command.pageName)
       TEST_EQ("DISPLAY", command.command)
-      
+
 
    def testGetHtml(self):
       environ = {
@@ -165,10 +165,10 @@ class ut_WikiCommand:
 
 
    # miscellaneous -----------------------------------------------------
-      
+
    def testEquality(self):
       c1 = WikiCommand("DISPLAY", "fakeWiki", "fakePageName")
       c2 = WikiCommand("DISPLAY", "fakeWiki", "fakePageName")
 
       TEST_EQ(c1, c2)
-      
+

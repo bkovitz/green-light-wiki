@@ -7,7 +7,7 @@ from SavePage import SavePage
 from DisplayPage import DisplayPage
 
 from WikiRepository import WikiRepository
-from StringIO import StringIO
+from io import StringIO
 from Html import Html, HtmlRefresh, HtmlTextArea, NoRobots, HtmlDiv
 from VersionedFile2 import VersionedFile2
 import SessionDatabase

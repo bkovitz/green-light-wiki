@@ -2,7 +2,7 @@ from teest import *
 from HtmlMisc import metaKeywords
 
 import os, cgi
-from StringIO import StringIO
+from io import StringIO
 from Config import config
 from File import File
 from Environments import Environment
@@ -56,11 +56,11 @@ class FakePageFile:
 
 
    def openForWriting(self):
-      return file(self.filename, "w+")
+      return open(self.filename, "w+")
 
 
 def resetConfig():
-   config.readConfigFile(file("wiki.config", "r"))
+   config.readConfigFile(open("wiki.config", "r"))
 
 
 def clearSessionDict():
@@ -113,10 +113,10 @@ class FakeEnvironment(Environment):
 
 
 def DEBUG(obj, prefix="***"):
-   print "%s (class=%s)" % (prefix, obj.__class__.__name__)
+   print("%s (class=%s)" % (prefix, obj.__class__.__name__))
    for elem in dir(obj):
       try:
-         print "   %s = %s" % (elem, repr(obj.__dict__[elem]))
+         print("   %s = %s" % (elem, repr(obj.__dict__[elem])))
       except:
          pass
 

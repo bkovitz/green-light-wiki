@@ -2,7 +2,8 @@ from teest import *
 
 from VersionedFile2 import VersionedFile2
 
-from StringIO import StringIO
+# from io import StringIO
+from io import StringIO
 import re
 
 dateStringRE = \

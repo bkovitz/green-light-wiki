@@ -1,5 +1,5 @@
 import sys, os, operator, re
-from StringIO import StringIO
+from io import StringIO
 
 START = 0
 GOT_BRACKET = 1
@@ -58,7 +58,7 @@ class StateMachine:
             transition.actionMethod(c)
             self.state = transition.nextState
             return
-            
+
       assert "should never get here"
 
 
@@ -121,7 +121,7 @@ def readAndWrite(oldFile, newFile):
       else:
          for c in line:
             stateMachine.feedChar(c)
-         
+
 
 def convertOneFile(filename):
    inputFile = file(filename, "r")

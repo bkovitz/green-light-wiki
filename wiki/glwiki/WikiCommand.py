@@ -1,5 +1,5 @@
 import re, cgi
-from StringIO import StringIO
+from io import StringIO
 from CgiEnvironment import CgiEnvironment
 
 
@@ -92,7 +92,7 @@ class WikiCommand:
    def __ne__(self, other):
       return not self == other
 
-      
+
 def _extractWikiName(url):
    try:
       return _extractElements(url)[0]
@@ -114,7 +114,7 @@ def _lastElementAfterSlash(url):
       return ""
    else:
       return elements[-1]
-   
+
 
 def _extractElements(url):
    allElements = re.split("/", url)

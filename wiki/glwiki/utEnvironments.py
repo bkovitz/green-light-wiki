@@ -6,9 +6,10 @@ from StaticPage import StaticPage
 from CommandLine import CommandLine
 from utMisc import NonexistentFile, FileFromList
 from Misc import forceRemove
-from StringIO import StringIO
+from io import StringIO
 from time import time
-from Cookie import SimpleCookie
+# from Cookie import SimpleCookie
+from http.cookies import SimpleCookie
 
 from PlainPage import PlainPage
 from DisplayPage import DisplayPage
@@ -287,7 +288,7 @@ class ut_Environments:
       stdin = StringIO()
 
       env = getEnvironment(cmdArgs, environ, wikiDirs, stdin)
-      
+
       TEST_EQ("TESTWIKI/A Name with spaces", env.getPageName())
 
 
@@ -306,7 +307,7 @@ class ut_Environments:
       stdin = StringIO()
 
       env = getEnvironment(cmdArgs, environ, wikiDirs, stdin)
-      
+
       TEST_EQ("TESTWIKI/What_is_a_wiki?", env.getPageName())
 
 
@@ -333,5 +334,5 @@ class ut_Environments:
       stdin = StringIO()
 
       env = getEnvironment(cmdArgs, environ, wikiDirs, stdin)
-      
+
       TEST_EQ("A_Page", env.getPageName())

@@ -13,7 +13,7 @@ trim_trailing_whitespace = true
 # Python files
 [*.py]
 indent_style = space
-indent_size = 3
+indent_size = 4
 
 # JavaScript and other JS-like files
 [*.{js,ts,jsx,tsx,json}]

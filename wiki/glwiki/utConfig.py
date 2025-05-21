@@ -2,7 +2,7 @@ from teest import *
 import sys
 
 from Config import Config
-from StringIO import StringIO
+from io import StringIO
 
 class ut_Config:
 
@@ -66,7 +66,7 @@ logo file:    /other-logo.gif
       TEST_EQ(config.get("testWiki", "wiki executable"), "/cgi-bin/wiki.cgi")
       TEST_EQ(config.get("testWiki", "url prefix"), "http://glwiki.com/testWiki/")
       TEST_EQ(config.get("other-wiki", "url prefix"), "http://glwiki.com/other-wiki/")
-      
+
 
    def testGetNonwikiFilename(self):
       fakeFile = StringIO("""

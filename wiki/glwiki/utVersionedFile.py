@@ -1,5 +1,5 @@
 from teest import *
-from StringIO import StringIO
+from io import StringIO
 
 from VersionedFile import VersionedFile, VersionInfo, _parse, \
    BadVersionException
@@ -191,7 +191,7 @@ Second line of the file
       TEST_EQ("12.34.56.78.12.34", got.date)
       TEST_EQ("GeorgeGibbons", got.author)
 
-      
+
    def testgetLatestVersionNum(self):
       fakeFile = StringIO(
 """@@ version 2; date 12.34.56.78.12.34; author GeorgeGibbons;
@@ -209,7 +209,7 @@ Second line of the file
 
    def testLineParser(self):
       line = "@@ version 2; date 12.34.56.78.12.34; author JohnQMittens;"
-      
+
       d = _parse(line)
 
       TEST_EQ("2", d["version"])
@@ -278,7 +278,7 @@ Third line.
       ]
 
       TEST_EQ(expect, v.getLatestVersion())
-      
+
       vlist = v.getVersionList()
 
       TEST_EQ(1, len(vlist))

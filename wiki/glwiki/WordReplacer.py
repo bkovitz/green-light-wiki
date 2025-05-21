@@ -1,9 +1,15 @@
 import re
-from curses.ascii import ispunct
+# from curses.ascii import ispunct
 
+# We have to do this to replace ispunct because it doesn't exist in Python 3
+import string
 from WikiRepository import NullRepository
+
 from Html import Class, HtmlAnchor, HtmlImage
 from LatexImage import LatexImage
+
+def ispunct(char):
+    return char in string.punctuation
 
 _wordTypes = "((?:\$\$.+?\$\$)|(?:\[\[.+?\]\])|(?:http://\S+)|(?:ftp://\S+)|(?:https://\S+)|(?:mailto:\S+)|(?:\<)|(?:\>)|(?:\&)|(?:\w+)|(?:\s+)|(?:-{4,})|(?:''')|(?:'')|(?:[^\w\s]))"
 

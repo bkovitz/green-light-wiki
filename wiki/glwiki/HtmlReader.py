@@ -1,4 +1,4 @@
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 from Html import Html
 
 class HtmlReader(HTMLParser):
@@ -44,7 +44,7 @@ class HtmlReader(HTMLParser):
          self.inHead = 0
       else:
          self.add("</%s>" % tag.upper())
-         
+
 
    def add(self, item):
       if self.inBody:

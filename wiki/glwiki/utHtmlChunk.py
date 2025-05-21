@@ -16,14 +16,14 @@ class ut_HtmlChunk:
 
 
    def testChunkFromFile(self):
-      chunk = HtmlChunkFromFile(file("test-chunks.html", "r"), "SAMPLECHUNK")
+      chunk = HtmlChunkFromFile(open("test-chunks.html", "r"), "SAMPLECHUNK")
       chunk.blah = "some text"
       TEST_EQ('<P>The expression some text goes here.</P>\n', str(chunk))
 
 
    def testChunkWithDefault(self):
       chunk = HtmlChunkFromFile(
-         file("test-chunks.html", "r"),
+         open("test-chunks.html", "r"),
          "NonexistentChunk",
          "default <%=blah%> text"
       )
@@ -65,5 +65,5 @@ class ut_HtmlChunk:
 
 
    def testEqualEqualInChunk(self):
-      chunk = HtmlChunkFromFile(file("test-chunks.html", "r"), "ChunkWithDoubleEqual")
+      chunk = HtmlChunkFromFile(open("test-chunks.html", "r"), "ChunkWithDoubleEqual")
       TEST_EQ("Some text\n== Seemingly a chunk start\n", str(chunk))

@@ -1,5 +1,5 @@
 import os, os.path, time
-from fcntl import lockf, LOCK_EX, LOCK_SH
+#from fcntl import lockf, LOCK_EX, LOCK_SH
 #from urllib import quote
 from urllib.parse import quote
 
@@ -21,7 +21,7 @@ class PageFile:
       try:
          #result = open(self.fullPath, "r")
          result = open(self.fullPath, "r", errors='ignore')
-         lockf(result, LOCK_SH)
+         # lockf(result, LOCK_SH)
          return result
       except IOError:
          return None
@@ -32,13 +32,13 @@ class PageFile:
          result = open(self.fullPath, "r+", errors='ignore')
       except IOError:
          result = open(self.fullPath, "w+", errors='ignore')
-      lockf(result, LOCK_EX)
+      # lockf(result, LOCK_EX)
       return result
 
 
    def openForAppending(self):
       result = open(self.fullPath, "a+", errors='ignore')
-      lockf(result, LOCK_EX)
+      # lockf(result, LOCK_EX)
       return result
 
 
