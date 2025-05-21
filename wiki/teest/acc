@@ -1,0 +1,145 @@
+#!/usr/bin/python
+
+import sys
+from os import popen, mkdir, access, F_OK
+
+class Test:
+
+   outputDirectory = "ACC_OUT"
+
+   def __init__(self, command, expectText, expectCode):
+      self.command = command
+      self.expectText = expectText
+      self.expectCode = expectCode
+      self.result = None
+
+   
+   def run(self):
+      p = popen("python teest.py " + self.command)
+      gotText = p.readlines()
+      gotText = "".join(gotText)
+      gotCode = p.close() >> 8
+
+      failed = 0
+      results = []
+
+      if self.expectText != gotText:
+         results.append("text bad")
+         failed = 1
+         self._saveResults(gotText)
+
+      if self.expectCode != gotCode:
+         results.append(
+            "return code bad (expected %d, got %d)"
+            %
+            (self.expectCode, gotCode)
+         )
+         failed = 1
+
+      self.result = ", ".join(results)
+
+      return failed
+
+
+   def _saveResults(self, gotText):
+      f = self._makeFile("%s.got" % self._stripExtension(self.command))
+      f.writelines(gotText)
+      f.close()
+
+
+   def _makeFile(self, filename):
+      fullPath = self._makeDir() + "/" + filename
+      return file(fullPath, "w+")
+
+
+   def _makeDir(self):
+      if not access(Test.outputDirectory, F_OK):
+         mkdir(Test.outputDirectory)
+      return Test.outputDirectory
+
+
+   def _stripExtension(self, filename):
+      if filename[-3:] == ".py":
+         return filename[:-3]
+      else:
+         return filename
+      
+
+
+expect_accTestEq = \
+"""-------------------------------------------------- UNIT TESTS
+..
+
+FAILED: ut_SomeClass.testTestEqFalse
+  File "accTestEq.py", line 9, in testTestEqFalse
+    TEST_EQ("a" , "b")
+    TestFailed: 'a' != 'b'
+
+...
+
+FAILED: ut_SomeClass.testFalse
+  File "accTestEq.py", line 21, in testFalse
+    TEST(0)
+    TestFailed
+.
+
+FAILED: ut_SomeClass.testTestNeFalse
+  File "accTestEq.py", line 15, in testTestNeFalse
+    TEST_NE("a", "a")
+    TestFailed: 'a' == 'a'
+
+
+
+3 tests FAILED (6 tests run).
+"""
+
+expect_accDict = \
+"""-------------------------------------------------- UNIT TESTS
+.
+
+FAILED: ut_Dict.testDict
+  File "accDict.py", line 8, in testDict
+    a = dict["non-existent key"]
+    KeyError: non-existent key
+
+
+1 test FAILED (1 test run).
+"""
+
+tests = [
+   Test("accTestEq.py", expect_accTestEq, 1),
+   Test("accDict.py", expect_accDict, 1),
+]
+
+
+def main():
+   testsWord = plural(len(tests), "test", "tests")
+   failedCount = 0
+
+   print "-" * 50 + " ACCEPTANCE TESTS"
+
+   for test in tests:
+      failedCount += test.run()
+      print "%-20s %s" % (test.command, test.result)
+
+   print "\n%d %s run.\n" % (
+      len(tests),
+      testsWord,
+   )
+
+   if failedCount == 0:
+      print "All tests PASSED."
+      sys.exit(0)
+   else:
+      print "%d %s FAILED" % (failedCount, testsWord)
+      sys.exit(1)
+
+
+def plural(n, singular, plural):
+   if n == 1:
+      return singular
+   else:
+      return plural
+
+
+main()
