@@ -8,7 +8,6 @@ import re
 
 dateStringRE = re.compile("\d\d\d\d\.\d{1,2}\.\d{1,2}\.\d{1,2}\.\d{1,2}\.\d{1,2}")
 
-
 class ut_VersionedFile2:
 
     def testWrite1Read1(self):
