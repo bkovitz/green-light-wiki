@@ -15,6 +15,8 @@ Today's plan:
 6. Write Python code to convert the other set of files.
 7. Manually merge updated markdown files and updated wikitext files to make the final set of files for the new wiki.
 
+NEXT (as of 27-May-2025): Step 4: Copy WikiText2 and WordReplacer and modify them.
+
 --- Vercel markdown files ---
 [Lenore Thomson](/wiki/main/typologists/lenore-thomson) -> [[Lenore Thomson]]
 [Lenore](/wiki/main/typologists/lenore-thomson) -> [[Lenore Thomson|Lenore]]
