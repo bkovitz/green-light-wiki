@@ -7,28 +7,37 @@ So we are going to run `dumpLenoreWiki.py()` to:
 3. Store the converted pages in a db (Postgres?)
 
 Today's plan:
-1. Stare at markdown files (the files manually updated by April) to understand what needs to be changed. DONE
-2. Stare at old wikitext files to understand what needs to be changed.
-3. Choose which set of files to update first.
-4. For the old textfiles: stare at old Python code to see what existing code we can exploit.
-5. Write Python code to convert the first set of files.
-6. Write Python code to convert the other set of files.
-7. Manually merge updated markdown files and updated wikitext files to make the final set of files for the new wiki.
 
---- Vercel markdown files ---
+1. ~~Stare at markdown files (the files manually updated by April) to understand what needs to be changed.~~
+2. ~~Choose which set of files to update first.~~
+3. ~~Stare at old wikitext files to understand what needs to be changed.~~
+4. ~~Write Python code to convert the first set of files. (mdlinkToWikilink.py)~~
+5. Convert Vercel markdown files to the new format
+6. For the old textfiles: stare at old Python code to see what existing code we can exploit.
+7. Write Python code to convert the other set of files.
+8. Manually merge updated markdown files and updated wikitext files to make the final set of files for the new wiki.
+
+## Vercel markdown files
+
 [Lenore Thomson](/wiki/main/typologists/lenore-thomson) -> [[Lenore Thomson]]
 [Lenore](/wiki/main/typologists/lenore-thomson) -> [[Lenore Thomson|Lenore]]
-With internal links:
-The part in brackets is the alias.
-The last slug determines the page name. Convert to title case.
-Replace all with [[Page Name]] or [[Page Name|Alias]] depending on whether the alias is different from the page name.
-[The Unknown Citizen](https://poets.org/poem/unknown-citizen) -> [The Unknown Citizen(https://poets.org/poem/unknown-citizen)
-That is, don't change external links.
-date: 2025-05-27 20:00:00  
-author: Unknown
-version: 1 In step 7, manually change this to latest version + 1.
 
---- Old wikitext files ---
+### With internal links
+
+* The part in brackets is the alias.
+* The last slug determines the page name. Convert to title case.
+* Replace all with [[Page Name]] or [[Page Name|Alias]] depending on whether the alias is different from the page name.
+* [The Unknown Citizen](https://poets.org/poem/unknown-citizen) -> [The Unknown Citizen](https://poets.org/poem/unknown-citizen)
+* That is, don't change external links.
+
+### Frontmatter
+
+* date: 2025-05-27 20:00:00
+* author: Unknown
+* version: 1 In step 7, manually change this to latest version + 1.
+
+## Old wikitext files
+
 page name: Change to "title:". Change the underscores to spaces.
 Change names in camel case to have a space between words. ASimpleExegesis -> A Simple Exegesis
 versionNum: Change to "version:".
