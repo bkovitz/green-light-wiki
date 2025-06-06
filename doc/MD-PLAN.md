@@ -12,7 +12,7 @@ Today's plan:
 2. ~~Choose which set of files to update first.~~
 3. ~~Stare at old wikitext files to understand what needs to be changed.~~
 4. ~~Write Python code to convert the first set of files. (mdlinkToWikilink.py)~~
-5. Convert Vercel markdown files to the new format
+5. ~~Convert Vercel markdown files to the new format~~ resulting files are in `vercel-double-brackets/`
 6. For the old textfiles: stare at old Python code to see what existing code we can exploit.
 7. Write Python code to convert the other set of files.
 8. Manually merge updated markdown files and updated wikitext files to make the final set of files for the new wiki.

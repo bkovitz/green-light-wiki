@@ -10,7 +10,7 @@ cover: https://images.unsplash.com/photo-1600430188203-bbb8dac79646?crop=entropy
 
 ---
 
-### About this web site
+## About this web site
 
 [Lenore Thomson](/wiki/main/typologists/lenore-thomson)'s book is simply written, filled with examples and analogies from popular TV shows like Star Trek and The X Files. Even so, it can be maddeningly difficult to understand. She touches on a wide range of deep and broad topics from ancient philosophy to Sufism to contemporary pop culture. She seems to have something very definite in mind by her many [terms with nonobvious meanings](/wiki/main/our-difficulties/terms-with-nonobvious-meanings). She never really quite defines them, though, and it's difficult to pin down her meaning.
 

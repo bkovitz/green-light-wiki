@@ -1,0 +1,39 @@
+---
+description: A hypothesis about what Lenore means by Te and why it matters
+title: Lowest-Common-Denominator Logic
+aliases:
+  - Lowest-Common-Denominator Logic
+tags:
+  - thinking/extraverted
+  - hypothesis
+---
+
+[[Extraverted thinking]], in contrast to [[introverted thinking]], is the lowest common denominator of logic. Where Ti explores every manner of logical and causal relationship at once, tying together tens or hundreds or thousands of factors and observations simultaneously into a single idea, Te plods. Te goes one simple, verbalizable step at a time. It's so trivially simple, anyone who can speak a human language can do it.
+
+This might sound demeaning to Te, and perhaps it is, but it is only by being the lowest common denominator of logic that Te can serve as a basis for agreements and laws. If it wasn't plodding, if it required good taste and careful attunement (as Ti does), then some people would be better at it than other people. There would be no _fair_ way to determine if someone violated the terms of a contract or broke a law. Without Te, there would be much less unanimity about how to rule on a particular case, because each judge would rule according to his personal taste, experience, and view of the grand scheme of things.
+
+Just as attempts to establish just social orders that are oriented to Ti fail because they can't be fair in a way that all can agree is fair, attempts to theorize and make artwork and design by following Te often have a crude, blocky quality.
+
+## Fairness and predictability
+
+_Fairness_ means dividing people into winners and losers in such a way that the losers feel obligated to the winners. This can only work if the criteria for calling someone a winner are defined and agreed to in advance of the situation that calls for a decision. (In situations where "winning" and "losing" don't apply, such as distributing limited resources among a group of people, fairness means that the agreed-upon rules tell in advance of the situation how much each person will get.)
+
+For example, suppose you are playing a sport, like football, except that the rules are not defined in advance. Whenever there is a dispute between team A and team B, team A invents a new rule on the spot to settle the matter. For example, suppose that team A goes for it on fourth down and doesn't make it. But then team A insists on getting a fifth down. They can do that, because they're making up the rules as the game progresses. If team B had gone for it on fourth down and wanted a fifth try, team A would declare a rule that four downs is all you get, sorry. There's nothing to stop team A from changing the rule back and forth depending on who has the ball.
+
+Such a situation would be "unfair". Team B would not agree that it is playing by the same rules as team A, and would not accept the outcome of the game. On the other hand, if the rules were defined in advance of the game and adhered to impartially, and team B lost, then team B would likely congratulate team A on the victory.
+
+The need to define criteria in advance of action makes this [[extraverted thinking]] territory. The rules must be such that no matter who is making the decision, the decision will come out the same, given the same facts. The entire space of possible facts must be cleaved into a mutually exclusive and jointly exhaustive set of regions, so that applying the rules is straightforward: if the given fact is in region A, then we give it response A'; if the fact is in region B, then we give it response B'; and there are no other possibilities. For example, if you don't advance the ball past the first-down marker in four tries, then you give up the ball. If you do advance the ball past the first-down marker in four tries, then you retain the ball. It's as simple as that.
+
+This kind of [[thinking]] doesn't create art or beauty or subtlety, but it certainly creates predictability. In particular, it creates a kind of predictability that enables people to know what criteria they need to meet in order to merit a particular reward or penalty. When a social activity is governed by [[extraverted thinking]], everyone knows where they stand. If someone else scores more points, gets paid more, gets a specific public recognition (such as a diploma), and you didn't, at least you know that it was because they met the criteria for those things and you didn't. If you want those things, then you know exactly what you need to do. You know that as long as the rules are applied fairly, then once you meet the criteria, you will have the same rewards. From the Te standpoint, whatever you get must be _earned_—by criteria that all can recognize as fair.
+
+For _all_ to recognize criteria as fair, not only must the criteria be defined in advance of the reality, the criteria must be in terms of concepts that all can understand—even the most clueless. Thus Te is lowest-common-denominator logic. To play along with Te is to accept a sort of self-imposed retardedness: "I will exclude all considerations and forms of reasoning beyond what the dumbest person in this community can understand and agree with." (A common solution to the obvious problem of reducing everyone to stupidity is to require credentials before admitting someone to a particular community. For example, you only get to be an engineer if you acquire a diploma from an accredited university and pass a certain socially sanctioned examination.)
+
+J types characteristically see this self-imposed limitation as the kind of sacrifice we have to make in order to have social order; without it, everyone would be doing their own thing, and we'd have anarchy. But it's mostly IJ types who point this out explicitly, because their primary way of representing the world is _not_ extraverted judgement. EJ types, seeing the world primarily in terms of what can structure a social situation in a way that all can agree to, are prone to think that anything beyond those limits "doesn't exist" or is "subjective" (i.e. doesn't really exist). P types, by contrast, often see social rules as attempts by one party to covertly impose their will onto others, attempts to limit their intelligence and creativity, or simply as pointless stupidity. The [[secondary function]] of EJ[^1]s gives them a way to understand socially agreed-upon rules for what they are—the lowest common denominator of logic and feeling—and deal mindfully with the trade-offs that they involve. Their [[inferior function]] mostly leads them to make bizarre stands for principles that others don't recognize, usually endangering their positions of respect and responsibility (see [The Big Lebowski](https://web.archive.org/web/20080101085002/http://greenlightwiki.com/lenore-exegesis/The_Big_Lebowski)).
+
+Unmitigated Te runs into problems in real life because fairness is not the same as goodness. Many important things in life cannot be subsumed under criteria that people can define in advance: art, beauty, humor, true justice, etc. In particular, theoretical insight is inherently prior to any sort of criteria: insight proceeds by abstraction from concrete reality, and leads to ways of framing reality conceptually that (a) can't be predicted, and (b) can't be understood except by attending to concrete reality _without_ a set of categories and conclusions already defined. In [_Invariances: The Structure of the Objective World,_](http://www.amazon.com/exec/obidos/tg/detail/-/0674006313/103-4692693-3047841?v=glance) Robert Nozick points out that the method of proof is a poor heuristic.
+
+---
+
+See also: [[King on the Mountain]], [[Shallowness]].
+
+[[Extraverted Thinking|^1]: Types which use [Extraverted Thinking]] or [[Extraverted Feeling]] as their [[Dominant Function|dominant]] attitude
