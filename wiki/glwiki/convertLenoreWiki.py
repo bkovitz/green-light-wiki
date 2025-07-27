@@ -2,9 +2,12 @@
 #                         wiki to markdown
 
 import re
+from pathlib import Path
+
 from VersionedFile2 import VersionedFile2
 from WikiRepository import WikiRepository
 from WikiText2 import ParagraphList, _parseParas
+from UnsmashWords import unsmashWords
 
 # def printAllVersions(f):
 #     pageFile = repo.pageFile(pageName)
@@ -36,15 +39,22 @@ def replace_token(token):
     else:
         return token
 
-def get_page_version(title, version):
+def get_page_info(title, version):
     pageFile = repo.pageFile(title)
     f = pageFile.openForReading()
     v = VersionedFile2(f)
     wikitext = v.getVersion(version)
-    return wikitext
+    title = unsmashWords(title)
+    author = v.getVersionInfo(version).author
+    date = convert_timestamp(v.getVersionInfo(version).date)
+    return [wikitext, title, author, date]
+
+def convert_timestamp(timestamp):
+    arr = timestamp.split('.')
+    return "-".join([str(n) for n in arr[:3]]) + " " + ":".join([str(n) for n in arr[3:6]])
 
 def fix_line_tokens(wikitext):
-    token_types = "((?:\$\$.+?\$\$)|(?:\[\[.+?\]\])|(?:http://\S+)|(?:ftp://\S+)|(?:https://\S+)|(?:mailto:\S+)|(?:\<)|(?:\>)|(?:\&)|(?:\w+)|(?:\s+)|(?:-{4,})|(?:''')|(?:'')|(?:[^\w\s]))"
+    token_types = r"((?:\$\$.+?\$\$)|(?:\[\[.+?\]\])|(?:http://\S+)|(?:ftp://\S+)|(?:https://\S+)|(?:mailto:\S+)|(?:\<)|(?:\>)|(?:\&)|(?:\w+)|(?:\s+)|(?:-{4,})|(?:''')|(?:'')|(?:[^\w\s]))"
     result = []
 
     for line in wikitext:
@@ -55,7 +65,7 @@ def fix_line_tokens(wikitext):
     return result
 
 def fix_paras(paras):
-    regex = "^(?P<equals>={1,5})(?P<text>[^=].*?)(={1,5})$"
+    regex = r"^(?P<equals>={1,5})(?P<text>[^=].*?)(={1,5})$"
     d = {'=': '##', '==': '##', '===': '###', '====': '####', '=====': '#####'}
     for para in paras:
         if para.startswith("="): # Heading
@@ -81,8 +91,39 @@ def convert_to_markdown(wikitext):
     for para in fixed_paras:
         yield para
 
-wikitext = get_page_version("Politicians-and-Saints_Exegesis", 7)
-markdown = convert_to_markdown(wikitext)
 
-for para in markdown:
-    print(para)
+def get_all_filenames():
+    directory = Path("../lenore-exegesis")
+    for file in directory.iterdir():
+        yield file.name
+
+def versions_of(title):
+    pageFile = repo.pageFile(title)
+    f = pageFile.openForReading()
+    v = VersionedFile2(f)
+
+    for version_num in range(1, v.getLatestVersionNum()):
+        yield version_num
+
+def new_path_for(title, version_num):
+    return 'wikitext-converted/' + title + '.' + str(version_num) + '.md'
+
+def create_markdown(filename, version_num, f):
+    wikitext, title, author, date = get_page_info(filename, version_num)
+    markdown = convert_to_markdown(wikitext)
+
+    print("---", file = f)
+    print(f"title: {title}", file = f)
+    print(f"author: {author}", file = f)
+    print(f"version: {version_num}", file = f)
+    print(f"date: {date}", file = f)
+    print("---", file = f)
+
+    for para in markdown:
+        print(para, file = f)
+
+if __name__ == '__main__':
+    for filename in get_all_filenames():
+        for version_num in versions_of(filename):
+            with open(new_path_for(filename, version_num), 'w', encoding='utf-8') as f:
+                create_markdown(filename, version_num, f)

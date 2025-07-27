@@ -1,0 +1,17 @@
+---
+title: Miss Manners
+author: Ben Kovitz
+version: 1
+date: 2004-7-18 18:6:2
+---
+Miss Manners, the pen name of Judith Martin, a [[syndicated etiquette columnist http://women.msn.com/mannersindex.armx]].
+##  Hypothesis: INTJ 
+Ok, she's an etiquette columnist, and she talks endlessly about what your social obligations are, as dictated by social convention.  She mocks the idea that one should expect etiquette to be logical.  Surely this would suggest dominant [[extraverted feeling]]?
+_Hypothesis:_ from the [[Lenore]] perspective, there is an enormous difference between Miss Manners' writing and [[extraverted feeling]].  Miss Manners' main point is that etiquette, indeed civilization, is based on hypocrisy--so deal with it.  She views the primary function of etiquette as the _concealment_ of the rotten things in your heart.  The moral of nearly every column is: if we all had the sense to conceal our true feelings, we'd all get along so much better.
+Miss Manners is all about [[irony]].  Her favorite examples of etiquette involve using social conventions that mean something friendly or respectful as a way to subtly communicate or draw attention to something negative or humiliating.  For example, a reader wrote in asking if he should address his letter to a congressman in prison with "Honorable _____."  Miss Manners said she didn't know of a rule to cover such cases, but she wouldn't miss the opportunity to address a prisoner as "Honorable."
+A genuine, developed [[extraverted feeling]] standpoint sees etiquette as a language through which to express your true feelings--and that it's your job to make your true feelings harmonious with your community, by genuinely appreciating that you _are,_ to a great extent, defined by people's feelings toward you.  From a dom-Fi perspective, the only reason you would say something nice is because you felt something nice.  Why, if people actually went around saying nice things in order to express hostility, then how could anyone figure out where they stand with anyone else?
+##  The narrow-bandwidth channel 
+Miss Manners well illustrates a favorite fascination of nearly all [[INTJs]]: communication through an extremely narrow-bandwidth channel, of things that cannot be said in terms of the vocabulary of that channel.  The channel, for Miss Manners, is customary, extremely formal forms of expression.  These usually cheerful forms are fascinating because they _hide_ a shadow reality lurking just underneath.
+##  Judging the world imperfect and accepting it 
+Another common theme in Miss Manners' columns is that the world is mostly a rotten, ugly place, and therefore truthfulness is a bad idea.  A wiser choice, in her view, is to create "public fictions" of a better world.  In the public fiction created by etiquette, we are all warm-hearted, care about each other, respect each other's work and abilities (ha!), and so on.  We have the choice to create this fictitious but pleasant world through how we create that narrow-bandwidth communication channel.  All that can be said, in her view, is fiction.
+See [[Introverted Intuition]].

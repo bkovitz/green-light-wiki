@@ -1,0 +1,28 @@
+---
+title: Orienting
+author: 66.215.85.114
+version: 2
+date: 2003-8-19 17:53:39
+---
+What is the difference between an introverted way of orienting yourself and an extraverted way of orienting yourself?
+To answer this question, we'll look at what it means to even say, "I am here."
+##  Where is here? 
+Imagine that you're walking around in a town that you've never visited before, maybe in a foreign country where they don't speak your language.  You've been wandering around a while and you've lost your bearings.  How do you find out where you are?
+You look around and find a street sign.  It says, "Kunststoffstrasse".
+Ok, you are on Kunststoffstrasse.  Knowing that, do you know where you are?
+You might still feel disoriented because you don't know where Kunststoffstrasse is.  So you pull out your city map.  At last, you find Kunststoffstrasse on the map.  _Now_ you know where you are.  Or do you?
+##  What purpose does the map serve? 
+From an extraverted point of view, you get your bearings by finding things that are right _here:_ things that you can see right now.  The street itself is your reference point.  You can find your way around simply by relating other things you find to that reference point.  You don't need to know the whole layout of the city to navigate in this way.  You walk around, you notice things, and gradually you learn more and more about the city.
+From an introverted point of view, you get your bearings by relating the things that are right _here_ to something complete, which you carry around within yourself.  Unlike the city streets, which are outside yourself and that you can never fully "know", the map provides a vocabulary of meanings that exist entirely within yourself (or at least on the map).  From an introverted standpoint, you only feel oriented when you relate things to a map.
+This example uses Si to illustrate introversion--orienting oneself by a vocabulary of stable meanings that you relate tangible things to--but the principle applies to all the [[Semiotic Attitudes]].
+##  Introverts and extraverts 
+The above gives us enough to frame some definitions to make an interpretation of what Lenore is saying:
+_Introverts_ are people who primarily orient themselves in an introverted way.  Before they get into something, they want something analogous to a map in order to find their way.  Once into something, they'll want to frequently stop and consolidate their understanding in the form of some kind of map.  Without some kind of map by which to tell "where is here?", they feel disoriented.
+_Extraverts_ are people who primarily orient themselves in an extraverted way: they get their bearings by looking at what is easily perceivable here and now.  For extraverts, directions are meaningful only if they relate to present circumstances.  They feel somewhat disoriented by extended examinations of maps: maps (especially of a more abstract kind) are not easily perceivable and do not relate in an obvious way to what is easily perceivable right now.
+Of course, everyone uses both introverted and extraverted ways of self-orienting at different times.
+##  What is electricity? 
+An introverted understanding of something is self-contained: it is a purely mental world.  An extraverted understanding of something is inherently _relative_ to some part of the world.
+This difference shows itself in a common philosophical difference regarding whether we can "know" what electricity is.  From an introverted standpoint, you only feel like you "know" what electricity is if you can find something that you can fully define in terms of concepts that you can hold independently of your experiences with electricity.  From an extraverted standpoint, of course you know what electricity is: it's that stuff that powers the lights!  From an extraverted standpoint, you "know" what it is if you can point to it.
+--[[Ben Kovitz]]
+---
+See also: [[Life Strategies]]

@@ -1,0 +1,24 @@
+---
+title: Politicians-and-Saints Exegesis
+author: 66.215.85.114
+version: 1
+date: 2003-8-17 23:56:35
+---
+This might be what [[Lenore Thomson]] means by _introversion_ and _extraversion_ (as attitudes that people can take, not as personality types).
+---
+From an extraverted perspective, the social arena you are in is a given; you try to figure out a way to fit into it.  From an extraverted perspective, you can't judge the rules of the social arena; you are _in_ the social arena, and there are no thoughts to think except how to get around within the social arena, ways to do well in socially recognized ways, etc.
+From an introverted perspective, you see things from a timeless perspective that enables you to criticize the social arena and its rules, and to willingly do good even when it comes with a steep social price.
+The social arena is an ever-shifting flux of common understandings, changing always because people either negotiate changes to the social agreement or find ways to incorporate things from outside the current limits of the social agreement.  Different [[Extraverted]] [[Function Attitudes]] prevail at different times in history.  [[Introverted]] attitudes, however, are incapable of
+When [[Extraverted Judging]] attitudes bind the society, there is an understanding that the shared enterprise requires that people sacrifice some of their desires: that the rules that make up the negotiated social contract are there for everyone's benefit--that holding some of our impulses at bay is ultimately for everyone's benefit.  During a time when Je attitudes dominate, [[Introverted Perception]] is needed to soften the harshness and impersonality of the rules to take into account unique circumstances that the rules were not formed to address and that perhaps no rules can address.
+When [[Extraverted Perceiving]] attitudes bind the society, there is an understanding that each individual should fully live out his own uniqueness, that the result is mostly synergy and fun for everyone.  Social rules are seen as ways in which the people who created those rules benefit at the expense of people who have less of a say in those rules.  During a time when Pe attitudes dominate, [[Introverted Judgement]] is needed to hold people back from exercising power simply because they can, and consider themselves answerable to a higher authority than "whatever plays to the crowd".
+To put all this another way, extraversion makes you a politician while introversion makes you a saint.
+---
+**The [[Function Attitudes]] seen through this exegesis**
+Se types make a place for themselves in the social arena by creating an attractive image--attractive according to current tastes.  Their main tool is _impactfulness:_ sensing what will stand out and get people's attention.
+Si types hold steady to things that they see as mattering regardless of change.
+Ne types make a place for themselves in the social arena by sensing what is latent or unexpressed and presenting themselves as the people who bring it.  Their main tool is _suggestiveness:_ sensing what their audience will perceive as suggesting something transformative and desirable.
+Ni types are pioneers of new ways of perceiving.  They explore gaps and blind spots in society's ways of understanding and deciding.
+Te types make a place for themselves in the social arena through the creation of contracts--they find ways to make promises that they can keep, and which are fair to all.  Their main tool is _rules:_ rules created by agreement, which define a common vocabulary for people to negotiate, resolve disputes, and know where they stand with others.
+Ti types attune themselves to a harmony of things that emerges from the things and not from social agreement.  They bring an understanding of _natural law_, doing the right thing even when the man-made law forbids it.
+Fe types make a place for themselves in the social arena through the creation of networks of mutual loyalty.  Fe types find ways to make themselves socially important, as measured by how many people depend on and value them.  Their main tool is: _relationship:_ ways in which people understand their very selves as bound together in a common fate.
+Fi types attune themselves to whatever is humane and decent, without regard for how important or attractive someone is socially.  They give aid to people who fall through the cracks of the social system, regardless of whether anyone rewards them for this.

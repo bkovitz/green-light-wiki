@@ -1,0 +1,14 @@
+---
+title: Holistic Spiraling
+author: 66.215.85.114
+version: 2
+date: 2003-8-19 17:58:25
+---
+The typical rhetorical style of NPs, especially INTPs: appeal to [[Extraverted Intuition]], pointing out relationships among disaparate things, to trigger an "aha!" of [[Introverted Judgement]].
+In [[Holistic Spiraling]], one makes a contrast or comparison to establish reference for a term, then uses that term to state a proposition.  That proposition is then contrasted or compared with other propositions, creating a new vocabulary for proposing yet more hypotheses, and so on, hence the "spiraling".  "How does this relate to that?  Now that we understand that relation, how we can we better understand these other things?"
+In contrast to rhetoric guided by [[Extraverted Thinking]], the conclusion cannot be stated at the beginning.  Nearly all of the rhetoric is concerned primarily with establishing a shared understanding of reference points in reality, in terms of which the conclusion will be framed.  The rhetoric of [[Extraverted Thinking]] more typically begins with a conclusion framed in terms of an already shared conceptual framework, followed by reasons to establish that conclusion as opposed to contrary conclusions.
+--[[Ben Kovitz]]
+---
+Compare the attitude toward reference points described in [[Introverted Perception]].
+---
+[[Jared Diamond]], in the book _[[Guns, Germs, and Steel http://www.amazon.com/exec/obidos/ASIN/0393317552/greenlightwik-20]],_ has probably taken the [[Holistic Spiraling]] style to its apotheosis.

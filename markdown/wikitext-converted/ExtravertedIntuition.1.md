@@ -1,0 +1,15 @@
+---
+title: Extraverted Intuition
+author: 66.215.85.114
+version: 1
+date: 2003-8-10 6:32:10
+---
+What does [[Lenore Thomson]] mean by "Extraverted Intuition"?
+(Often abbreviated "Ne".)
+---
+**Quasi-Defining Statements**
+p. 196: "Intuition draws our attention to context and we adapt to sensory events in terms of it."
+p. 197: "Once we've grasped a whole pattern, we can envision options that don't yet exist.  Indeed, one of the drawbacks of Intuition is that it conjures up a future before we know very much about the present.  For example, given enough elements to suggest a star or a square, we have a hard time _not_ filling in the blanks and seeing the complete image."
+p. 198: "...to leap from a few immediate cues to a quick impression of the whole..."
+p. 223: "Extraverted Intuition would move us to unify our sense impressions with their larger context, thereby creating new options for meaning and response."
+p. 224: "Extraverted Intuitives are right-brain types who deal with their sense impressions by unifying them into larger outward patterns.  An ENP physician, for example, may realize, with sudden insight, that several unexplained symptoms are actually part of a single disease.  As an Extraverted type, the physician has no doubt that the disease syndrome really exists.  The pattern was always there, waiting for someone to discover it."
